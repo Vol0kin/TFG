@@ -1,0 +1,72 @@
+\documentclass[11pt,a4paper]{book}
+\usepackage[spanish,es-nodecimaldot]{babel}	% Utilizar español
+\usepackage[utf8]{inputenc}					% Caracteres UTF-8
+\usepackage{graphicx}						% Imagenes
+\usepackage[hidelinks]{hyperref}			% Poner enlaces sin marcarlos en rojo
+\usepackage{fancyhdr}						% Modificar encabezados y pies de pagina
+\usepackage{float}							% Insertar figuras
+\usepackage[textwidth=390pt]{geometry}		% Anchura de la pagina
+\usepackage[nottoc]{tocbibind}				% Referencias (no incluir num pagina indice en Indice)
+\usepackage{enumitem}						% Permitir enumerate con distintos simbolos
+\usepackage[T1]{fontenc}					% Usar textsc en sections
+\usepackage{amsmath}						% Símbolos matemáticos
+\usepackage{natbib}
+
+% Comando para poner el nombre de la asignatura
+\newcommand{\asignatura}{Trabajo Fin de Grado}
+\newcommand{\autor}{Vladislav Nikolov Vasilev}
+\newcommand{\titulo}{TITULO}
+\newcommand{\subtitulo}{Subtitulo}
+\newcommand{\rama}{Rama}
+
+% Configuracion de encabezados y pies de pagina
+\pagestyle{fancy}
+\lhead{\autor{}}
+\rhead{\asignatura{}}
+\lfoot{Grado en Ingeniería Informática}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}		% Linea cabeza de pagina
+\renewcommand{\footrulewidth}{0.4pt}		% Linea pie de pagina
+
+\begin{document}
+\pagenumbering{gobble}
+
+% Insertar portada
+\input{cover/cover}
+
+
+\pagenumbering{arabic}
+\tableofcontents
+\thispagestyle{empty}				% No usar estilo en la pagina de indice
+
+\newpage
+
+% Insertar capitulo 1: Introduccion
+\input{chapters/01_introduccion}
+
+\input{chapters/02_antecedentes}
+
+\input{chapters/03_plan_trabajo}
+
+\input{chapters/04_arquitectura_general}
+
+\input{chapters/05_descripcion}
+
+\input{chapters/06_software}
+
+\input{chapters/07_experimentacion}
+
+\input{chapters/08_conclusiones}
+
+\setlength{\parskip}{1em}
+
+\newpage
+
+% Incluir la bibliografia completa
+\bibliographystyle{plain}
+\nocite{*}
+\bibliography{bibliography}
+
+\end{document}
+
