@@ -15,9 +15,9 @@
 % Comando para poner el nombre de la asignatura
 \newcommand{\asignatura}{Trabajo Fin de Grado}
 \newcommand{\autor}{Vladislav Nikolov Vasilev}
-\newcommand{\titulo}{TITULO}
+\newcommand{\titulo}{Implementación de una arquitectura reactiva y deliberativa usando planificación en el entorno de juegos GVGAI}
 \newcommand{\subtitulo}{Subtitulo}
-\newcommand{\rama}{Rama}
+\newcommand{\tutor}{Juan Fernández Olivares}
 
 % Configuracion de encabezados y pies de pagina
 \pagestyle{fancy}
@@ -35,12 +35,19 @@
 % Insertar portada
 \input{cover/cover}
 
-
-\pagenumbering{arabic}
+% Indice
+\thispagestyle{empty}
 \tableofcontents
-\thispagestyle{empty}				% No usar estilo en la pagina de indice
+
+% Lista de figuras
+\thispagestyle{empty}
+\listoffigures
 
 \newpage
+
+% Comenzar la numeracion de las paginas a partir del primer capitulo
+\pagenumbering{arabic}
+\setlength{\parskip}{1em}
 
 % Insertar capitulo 1: Introduccion
 \input{chapters/01_introduccion}
@@ -58,8 +65,6 @@
 \input{chapters/07_experimentacion}
 
 \input{chapters/08_conclusiones}
-
-\setlength{\parskip}{1em}
 
 \newpage
 
