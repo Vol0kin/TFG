@@ -10,14 +10,20 @@
 \usepackage{enumitem}						% Permitir enumerate con distintos simbolos
 \usepackage[T1]{fontenc}					% Usar textsc en sections
 \usepackage{amsmath}						% Símbolos matemáticos
-\usepackage{natbib}
+
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}                       % Gestion de bibliografia
+\addbibresource{bibliography.bib}
 
 % Comando para poner el nombre de la asignatura
 \newcommand{\asignatura}{Trabajo Fin de Grado}
 \newcommand{\autor}{Vladislav Nikolov Vasilev}
 \newcommand{\titulo}{Implementación de una arquitectura reactiva y deliberativa usando planificación en el entorno de juegos GVGAI}
 \newcommand{\subtitulo}{Subtitulo}
-\newcommand{\tutor}{Juan Fernández Olivares}
+\newcommand{\director}{Juan Fernández Olivares}
 
 % Configuracion de encabezados y pies de pagina
 \pagestyle{fancy}
@@ -69,9 +75,8 @@
 \newpage
 
 % Incluir la bibliografia completa
-\bibliographystyle{plain}
 \nocite{*}
-\bibliography{bibliography}
+\printbibliography[heading=bibintoc]
 
 \end{document}
 
