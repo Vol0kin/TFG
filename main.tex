@@ -10,38 +10,45 @@
 \usepackage{enumitem}						% Permitir enumerate con distintos simbolos
 \usepackage[T1]{fontenc}					% Usar textsc en sections
 \usepackage{amsmath}						% Símbolos matemáticos
-
-\usepackage{emptypage}
-\usepackage[Sonny]{fncychap}                % Capitulos chulos
+\usepackage{emptypage}                      % Dejar sin estilo las paginas vacias
+\usepackage[Sonny]{fncychap}                % Capitulos con encabezado chulo :D
 
 \usepackage[
     backend=biber,
     style=alphabetic,
     sorting=ynt
-]{biblatex}                       % Gestion de bibliografia
-\addbibresource{bibliography.bib}
+]{biblatex}                                 % Gestion de bibliografia
+\addbibresource{bibliography.bib}           % Archivo que contiene la bibliografia
 
-% Comando para poner el nombre de la asignatura
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definir comandos
 \newcommand{\asignatura}{Trabajo Fin de Grado}
 \newcommand{\autor}{Vladislav Nikolov Vasilev}
-\newcommand{\titulo}{Implementación de una arquitectura reactiva y deliberativa usando planificación en el entorno de juegos GVGAI}
+\newcommand{\titulo}{Implementación de una arquitectura reactiva y deliberativa
+usando planificación en el entorno de juegos GVGAI}
 \newcommand{\subtitulo}{Subtitulo}
 \newcommand{\director}{Juan Fernández Olivares}
+\newcommand{\grado}{Grado en Ingeniería Informática}
 
 % Configuracion de encabezados y pies de pagina
 \pagestyle{fancy}
 
-% Paginas pares: poner solo el nombre del capitulo
+% Paginas pares:
+%   - HEADER: poner solo el nombre del capitulo
+%   - FOOTER: num. pagina a la izquierda y titulacion
 \fancyhead[RE]{}
 \fancyhead[LE]{\textbf{\nouppercase{\leftmark}}}
+\fancyfoot[RE]{\grado}
+\fancyfoot[LE]{\thepage}
 
 % Paginas impares: poner la seccion y el autor
-\fancyhead[LO]{\autor{}}
 \fancyhead[RO]{\textbf{\nouppercase{\rightmark}}}
+\fancyhead[LO]{\autor}
 
-\fancyfoot[L]{Grado en Ingeniería Informática}
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LO]{\asignatura}
+
 \fancyfoot[C]{}
-\fancyfoot[R]{\thepage}
 
 % Poner las lineas
 \renewcommand{\headrulewidth}{0.4pt}		% Linea cabeza de pagina
@@ -81,11 +88,13 @@
 
 \input{chapters/05_descripcion}
 
-\input{chapters/06_software}
+\input{chapters/06_configuracion}
 
-\input{chapters/07_experimentacion}
+\input{chapters/07_software}
 
-\input{chapters/08_conclusiones}
+\input{chapters/08_experimentacion}
+
+\input{chapters/09_conclusiones}
 
 \newpage
 
