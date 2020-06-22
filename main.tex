@@ -11,6 +11,9 @@
 \usepackage[T1]{fontenc}					% Usar textsc en sections
 \usepackage{amsmath}						% Símbolos matemáticos
 
+\usepackage{emptypage}
+\usepackage[Sonny]{fncychap}                % Capitulos chulos
+
 \usepackage[
     backend=biber,
     style=alphabetic,
@@ -27,11 +30,20 @@
 
 % Configuracion de encabezados y pies de pagina
 \pagestyle{fancy}
-\lhead{\autor{}}
-\rhead{\asignatura{}}
-\lfoot{Grado en Ingeniería Informática}
-\cfoot{}
-\rfoot{\thepage}
+
+% Paginas pares: poner solo el nombre del capitulo
+\fancyhead[RE]{}
+\fancyhead[LE]{\textbf{\nouppercase{\leftmark}}}
+
+% Paginas impares: poner la seccion y el autor
+\fancyhead[LO]{\autor{}}
+\fancyhead[RO]{\textbf{\nouppercase{\rightmark}}}
+
+\fancyfoot[L]{Grado en Ingeniería Informática}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+
+% Poner las lineas
 \renewcommand{\headrulewidth}{0.4pt}		% Linea cabeza de pagina
 \renewcommand{\footrulewidth}{0.4pt}		% Linea pie de pagina
 
@@ -40,6 +52,9 @@
 
 % Insertar portada
 \input{cover/cover}
+
+% Insertar prefacio
+\input{preface/preface}
 
 % Indice
 \thispagestyle{empty}

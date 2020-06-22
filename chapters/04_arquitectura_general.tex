@@ -36,36 +36,7 @@ envían entre ellos.
     \label{fig:system_arch}
 \end{figure}
 
-Las distintas figuras, colores y flechas que se han utilizado a la hora de construir el
-esquema representan lo siguiente:
-
-\begin{itemize}[label=\textbullet]
-    \item Los cilindros azules representan ficheros que se utilizan en el sistema.
-    \item Los círculos de color morado representan módulos funcionales que llevan a cabo
-    tareas de traducción.
-    \item Los cuadrados representan módulos funcionales que realizan distintos tipos de
-    tareas. Según el color que tengan, las tareas llevadas a cabo tendrán un mayor o menor
-    grado de automatización:
-    \begin{itemize}[label=\textendash]
-        \item El color rojo se utiliza en tareas que se llevan a cabo automáticamente.
-        \item El color verde se utiliza en tareas que requieren de la interacción del usuario
-        en un mayor o menor grado para poder ser completadas.
-    \end{itemize}
-    \item El hexágono amarillo representa el entorno de juego.
-    \item La nube de color gris representa el planificador, el cuál es un servicio en la
-    nube.
-    \item Las flechas normales representan información que se envían distintos módulos
-    funcionales entre ellos.
-    \item Las flechas discontinuas representan información proveniente de los archivos.
-\end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%              Sección 4.1: Descripción general de la arquitectura             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Descripción general de la arquitectura}
-
-Visto el esquema de la arquitectura general, vamos a comentar brevemente cuál es
+Tomando en consideración dicho esquema, vamos a comentar brevemente cuál es
 la funcionalidad básica de cada módulo lógico y cómo interactúan entre ellos.
 En el próximo capítulo desglosaremos cada uno de ellos y estudiaremos los módulos
 funcionales que los componen, de forma que se obtendrá una mejor visión de cómo
@@ -74,8 +45,9 @@ funciona cada componente y de cómo interactúa con las demás.
 Empecemos por la parte fundamental, la cuál es el \textbf{módulo de interacción con el usuario}.
 Como se puede suponer y por lo que se ha comentado anteriormente, este es el módulo
 menos automatizado, ya que es con el que interactúa directamente el usuario. Es aquí
-donde se encuentran dos de los procesos más importantes: la creación del dominio y la
-creación del archivo de configuración que utilizará el sistema.
+donde se encuentran dos de los procesos más importantes: la creación del dominio
+(\textit{Domain Writing}) y la creación del archivo de configuración
+(\textit{Configuration Generation}) que utilizará el sistema.
 
 Por una parte, el usuario tiene que definir el dominio de planificación, que es el que se
 utilizará en el sistema para representar el estado del juego en formato \texttt{PDDL}.
