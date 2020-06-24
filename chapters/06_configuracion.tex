@@ -39,6 +39,9 @@ generado para el juego \textit{Boulderdash}. El juego como tal se explicará en 
 A partir de este archivo plantilla se explicarán los campos que lo forman y cómo se rellenarían dichos
 campos.
 
+A continuación se ofrece el contenido de la plantilla que se ha obtenido a la hora de ejecutar
+el \textit{script}:
+
 \begin{lstlisting}[language=yaml]
 domainFile: domains/boulderdash-domain.pddl
 problemFile: problem.pddl
@@ -104,5 +107,221 @@ goals:
   - null
 \end{lstlisting}
 
-Los campos que se generan de forma automática son \texttt{domainFile}, \texttt{problemFile},
-\texttt{domainName} y \texttt{actionsCorrespondence}.
+Los campos que aparecen en el fichero son los siguientes:
+
+\begin{enumerate}
+    \item \texttt{domainFile}: Nombre del fichero de dominio \texttt{PDDL}. Este campo se genera
+    automáticamente a partir de los parámetros utilizados a la hora de ejecutar el \textit{script}.
+    
+    \item \texttt{problemFile}: Nombre del fichero de problema de salida. Tiene como valor por defecto
+    \texttt{problem.pddl}, pero el usuario puede darle el nombre que quiera.
+    
+    \item \texttt{domainName}: Nombre del dominio. Se genera automáticamente y se obtiene a partir del
+    archivo de dominio \texttt{PDDL}.
+    
+    \item \texttt{cellVariable}: Variable que se utilizará para representar las celdas. Una variable
+    viene precedida por el símbolo ``?'' y se le da el nombre que quiera el usuario. El uso del símbolo
+    de interrogación es para que tenga cierta semejanza con la manera en la que se hacen las definiciones
+    de variables en \texttt{PDDL}. Por ejemplo, en este caso se que la variable que representa una celda
+    sea la siguiente:
+    
+    \begin{lstlisting}[language=yaml]
+cellVariable: ?c
+    \end{lstlisting}
+    
+    Por tanto, cuando el traductor se encuentre que para un elemento del juego alguno de los predicados
+    asociados contiene la variable \texttt{?c} lo sustituirá por \texttt{c\_x\_y}, donde \texttt{x} es
+    la columna e \texttt{y} la fila donde se encuentra dicho elemento del juego.
+    
+    \item \texttt{avatarVariable}: Variable que se utilizará para representar al avatar/agente. Por
+    ejemplo, en este caso se ha decidido que sea la siguiente:
+    
+    \begin{lstlisting}[language=yaml]
+avatarVariable: ?p
+    \end{lstlisting}
+    
+    Esta variable es especial, ya que cuando se encuentre dicha variable en alguno de los predicados asociados
+    al avatar se va a sustituir simplemente por el nombre que le ha dado el usuario. Por ejemplo,
+    en este caso se sustituiría por \texttt{p}. Se ha hecho de esta forma debido a que simplifica
+    mucho la monitorización del plan, ya que tener una variable que constantemente cambia sus coordenadas
+    $x,y$ solo induciría a errores.
+    
+    \item \texttt{gameElementsCorrespondence}: Este campo sirve para asociar una lista de predicados
+    a cada observación (elemento) del juego, de forma que cuando el traductor de estados de observación
+    se encuentre con dicha observación, generará los correspondientes predicados instanciando las variables.
+    Las observaciones se obtienen a partir del fichero que define el juego en formato \texttt{VGDL}, el
+    cual recordemos que se pasa como parámetro a la hora de generar la plantilla del archivo de configuración.
+    Una observación que aparece siempre es \texttt{background}, la cual representa una celda en la que no
+    hay nada. Para este juego en concreto se han definido las siguientes correspondencias:
+    
+    \begin{lstlisting}[language=yaml]
+gameElementsCorrespondence:
+  background:
+  - (terrain-empty ?c)
+  wall:
+  - (terrain-wall ?c)
+  sword:
+  - (terrain-empty ?c)
+  dirt:
+  - (terrain-ground ?c)
+  exitdoor:
+  - (at ?e ?c)
+  - (terrain-empty ?c)
+  diamond:
+  - (at ?g ?c)
+  - (terrain-empty ?c)
+  - (occupied ?c)
+  boulder:
+  - (at ?boulder ?c)
+  - (terrain-empty ?c)
+  - (occupied ?c)
+  avatar:
+  - (at ?p ?c)
+  - (terrain-empty ?c)
+  crab:
+  - (at ?s ?c)
+  - (terrain-empty ?c)
+  - (occupied ?c)
+  butterfly:
+  - (at ?b ?c)
+  - (terrain-empty ?c)
+  - (occupied ?c)    
+    \end{lstlisting}
+    
+    Los predicados que aparecen, como es de suponer, deben ser los que se encuentran en el dominio
+    \texttt{PDDL} y deben ser correctos. Otra cosa importante es que se debe mantener un mínimo de consistencia.
+    Por ejemplo, si se ha definido que las celdas se representan mediante la variable \texttt{?c}, en
+    todos aquellos predicados donde aparezcan celdas debería aparecer dicha variable. En resumen, la nomenclatura
+    que se utiliza para definir las variables debe ser consistente, ya que si no se hace de esta forma,
+    se pueden llegar a producir errores a la hora de traducir las observaciones del juego.
+    
+    \item \texttt{variablesTypes}: Este campo representa una correspondencia entre las variables que
+    aparecen en los predicados del campo anterior y los tipos de \texttt{PDDL} que el usuario haya definido
+    en el dominio. Para este juego en concreto se han definido las siguientes asociaciones:
+    
+    \begin{lstlisting}[language=yaml]
+variablesTypes:
+  ?e: Exit
+  ?p: Player
+  ?boulder: Boulder
+  ?g: Gem
+  ?b: Bat
+  ?s: Scorpion
+  ?c: Cell
+    \end{lstlisting}
+    
+    Aunque anteriormente se ha definido cuáles son las variables asociadas a las celdas y al agente,
+    sigue siendo necesario especificar su tipo, ya que el usuario podría darle cualquier nombre al
+    tipo asociado a dichas variables al no haber un estándar.
+    
+    \item \texttt{orientationCorrespondence}: Este campo es opcional y solo se utiliza en aquellos
+    juegos donde la orientación del personaje sea un factor a tener en cuenta. A cada clave se le
+    tiene que asociar el correspondiente predicado que indique que el agente está orientado en esa
+    dirección (\texttt{UP} para arriba, \texttt{DOWN} para abajo, \texttt{LEFT} para izquierda
+    y \texttt{RIGHT} para derecha). En este caso, los siguientes predicados indican la orientación:
+    
+    \begin{lstlisting}[language=yaml]
+orientationCorrespondence:
+  UP: (oriented-up ?p)
+  DOWN: (oriented-down ?p)
+  LEFT: (oriented-left ?p)
+  RIGHT: (oriented-right ?p) 
+    \end{lstlisting}
+    
+    \item \texttt{connections}: Indica la relación de conectividad entre las celdas del juego.
+    Esto obliga a que en el dominio se represente el mapa del juego como una cuadrícula. Por tanto, tienen
+    que haberse declarado una serie de predicados que indiquen las conexiones entre las celdas. La clave
+    \texttt{UP} indica que una celda está encima de la otra, \texttt{DOWN} que una está debajo de la otra,
+    \texttt{LEFT} que una está a la izquierda de la otra y \texttt{RIGHT} que una está a la derecha de
+    la otra. Un ejemplo de esto se puede ver a continuación:
+    
+    \begin{lstlisting}[language=yaml]
+connections:
+  UP: (connected-up ?c ?u)
+  DOWN: (connected-down ?c ?d)
+  LEFT: (connected-left ?c ?l)
+  RIGHT: (connected-right ?c ?r)
+    \end{lstlisting}
+    
+    Es importante destacar que las variables que aparecen en estos predicados no tienen nada que ver
+    con las que se han definido en anteriores campos. Cuando se recorra el mapa para generar los relaciones
+    de conectividad la variable \texttt{?c} representará la celda actual, la cual está en la posición $(x,y)$.
+    La variable \texttt{?u} representará la celda superior a la actual situada en la posición $(x, y-1)$,
+    \texttt{?d} la inferior respecto a la actual situada en la posición $(x, y+1)$, \texttt{?l} la izquierda
+    respecto a la actual situada en la posición $(x-1, y)$ y \texttt{?r} la derecha respecto a la actual 
+    situada en la posición $(x+1, y)$.
+    
+    \item \texttt{actionsCorrespondence}: Correspondencia entre las acciones definidas en el dominio
+    \texttt{PDDL} y las acciones de \texttt{GVG-AI}. Las acciones \texttt{PDDL} se obtienen
+    a partir del archivo de dominio. Si el nombre de la acción \texttt{PDDL} contiene ciertos
+    patrones, se produce una traducción automática a una acción de \texttt{GVG-AI}:
+    
+    \begin{itemize}[label=\textbullet]
+        \item Si contiene \textit{up}, la acción se traduciría como \texttt{ACTION\_UP}.
+        \item Si contiene \textit{down}, la acción se traduciría como \texttt{ACTION\_DOWN}.
+        \item Si contiene \textit{left}, la acción se traduciría como \texttt{ACTION\_LEFT}.
+        \item Si contiene \textit{right}, la acción se traduciría como \texttt{ACTION\_RIGHT}.
+        \item Si contiene \textit{use}, la acción se traduciría como \texttt{ACTION\_USE}.
+        \item Si no contiene ninguno de los patrones anteriores, se traduciría como \texttt{null},
+        dejándole al usuario la tarea de asignarle un acción de \texttt{GVG-AI}, si es que la hay.
+    \end{itemize}
+    
+    Obviamente, el usuario puede modificar las traducciones a su gusto. Las acciones que tienen
+    como traducción \texttt{null} no se tendrán en cuenta a la hora de traducir los planes. También,
+    si no se quiere que se tenga en cuenta una acción, bien porque no tenga traducción o bien por otro
+    motivo, simplemente bastaría con eliminar dicha acción.
+    
+    \item \texttt{goals}: Representa la lista de objetivos definida por el usuario. Un objetivo está compuesto
+    por un predicado \texttt{PDDL} que representa lo que se quiere alcanzar, la prioridad del objetivo, una
+    opción que indica si guardar el objetivo o no una vez que este ha sido alcanzado y un campo opcional
+    que contiene una lista de objetivos alcanzados y guardados que deben ser eliminados. Cuanto menor
+    sea el valor de la prioridad, más prioridad tendrá dicho objetivo. Puede darse el caso de que haya
+    más de un objetivo con la misma prioridad, lo cual implica que no importa el orden en el que se
+    completen dichos objetivos. Guardar un objetivo sirve para incluirlo en los próximos estados \texttt{PDDL}
+    que genere el traductor de estados de observación, ya que puede ser que al alcanzar dicho objetivo
+    se produzca un cambio en el juego que debe ser considerado para alcanzar objetivos posteriores.
+    Eliminar un objetivo guardado una vez que se ha alcanzado otro implica que algo que anteriormente
+    era verdad ha dejado de serlo, y por tanto, el objetivo a eliminar no será incluido en posteriores
+    estados \texttt{PDDL}. Obviamente, para que esto suceda se tiene que haber alcanzado el objetivo a
+    eliminar previamente. A continuación se puede ver un ejemplo de esto:
+    
+    \begin{lstlisting}[language=yaml]
+goals:
+- goalPredicate: (got g_5_3)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_6_3)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_7_3)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_1_4)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_6_1)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_7_1)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_7_9)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_9_10)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (exited-level)
+  priority: 2
+  saveGoal: no
+- goalPredicate: (got g_16_9)
+  priority: 1
+  saveGoal: no
+    \end{lstlisting}
+    
+    Aquí se indica que el agente debe recolectar 9 gemas en cualquier orden y que, una vez que las ha obtenido,
+    debe salir del nivel. Al tener todas las gemas la misma prioridad, no importa en qué orden se cojan.
+    Lo único que importa es que se cojan todas las gemas antes de intentar salir del nivel. Aparte,
+    ninguno de estos objetivos tiene que ser guardado, y ninguno tiene una lista de objetivos a
+    eliminar una vez que se haya alcanzado.
+\end{enumerate}
