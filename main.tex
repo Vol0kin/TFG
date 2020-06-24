@@ -13,6 +13,17 @@
 \usepackage{emptypage}                      % Dejar sin estilo las paginas vacias
 \usepackage[Sonny]{fncychap}                % Capitulos con encabezado chulo :D
 
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, shapes, automata}
+
+% Ajustar tikzet
+\tikzset{Node style/.style={thick, draw=black, circle, align=center, minimum width=70pt}}
+\tikzset{
+	->, % Hace que los arcos sean dirigidos
+	>=stealth, % Hace que la punta de las flechas sean gruesas
+	node distance=7cm, % Distancia minima entre nodos
+}
+
 \usepackage[
     backend=biber,
     style=alphabetic,
@@ -42,7 +53,7 @@ usando planificación en el entorno de juegos GVGAI}
 \fancyfoot[LE]{\thepage}
 
 % Paginas impares: poner la seccion y el autor
-\fancyhead[RO]{\textbf{\nouppercase{\rightmark}}}
+\fancyhead[RO]{\textbf{\nouppercase{\small{\rightmark}}}}
 \fancyhead[LO]{\autor}
 
 \fancyfoot[RO]{\thepage}
