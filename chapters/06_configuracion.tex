@@ -1,5 +1,108 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%               Capitulo 6: Configuracion                  %
+%           Capitulo 6: Descripcion del archivo de configuracion               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Configuración}
+\chapter{Descripción del archivo de configuración}
+
+Como se ha podido ver hasta ahora, el archivo de configuración definido por el usuario
+juega un papel clave en el sistema. Es gracias a él que la mayoría de operaciones dentro
+del sistema pueden ser automatizadas, como por ejemplo la generación de problemas, la
+traducción de estados de observación a estados \texttt{PDDL}, la gestión de objetivos
+y la traducción de planes. Por tanto, es importante saber cómo se crea dicho fichero
+y qué formato tiene.
+
+\section{Creación del archivo}
+
+Como se comentó brevemente en el capítulo anterior, la creación del archivo de configuración
+está semiautomatizada. Se tiene un \textit{script} que, dado un archivo que contiene el dominio
+\texttt{PDDL} y el archivo de descripción del juego en formato \texttt{VGDL}, genera un archivo
+de configuración plantilla para que el usuario lo pueda rellenar. Algunos de los campos de
+ese archivo ya estarán rellenados, pero se deja total libertad al usuario para que los modifique.
+También existen ciertos campos que son opcionales, aunque se concretará más cuáles son cuando
+se describa la estructura del archivo.
+
+\section{Formato del archivo de configuración}
+
+El archivo de configuración está en formato \texttt{YAML} (\textit{YAML Ain't Markup Language}),
+que es un lenguaje para la serialización de datos creado de forma que sea muy fácil de leer tanto
+por humanos como por la máquina. Es esta legibilidad lo que hace que \texttt{YAML} sea ideal para
+la creación de archivos de configuración, ya que de manera sencilla y clara se pueden establecer
+los parámetros que configuran un sistema.
+
+El lenguaje está formado por tipos básicos como cadenas de texto, enteros, números reales y valores
+booleanos. También tiene tipos más avanzados, como listas y relaciones clave-valor.
+
+\section{Estructura del archivo de configuración}
+
+Para explicar la estructura del archivo vamos a partir de un archivo de configuración plantilla
+generado para el juego \textit{Boulderdash}. El juego como tal se explicará en capítulos posteriores.
+A partir de este archivo plantilla se explicarán los campos que lo forman y cómo se rellenarían dichos
+campos.
+
+\begin{lstlisting}[language=yaml]
+domainFile: domains/boulderdash-domain.pddl
+problemFile: problem.pddl
+domainName: BoulderDash
+cellVariable: null
+avatarVariable: null
+gameElementsCorrespondence:
+  background:
+  - null
+  wall:
+  - null
+  sword:
+  - null
+  dirt:
+  - null
+  exitdoor:
+  - null
+  diamond:
+  - null
+  boulder:
+  - null
+  avatar:
+  - null
+  crab:
+  - null
+  butterfly:
+  - null
+variablesTypes:
+  ?variable: Type
+orientationCorrespondence:
+  UP: null
+  DOWN: null
+  LEFT: null
+  RIGHT: null
+connections:
+  UP: null
+  DOWN: null
+  LEFT: null
+  RIGHT: null
+actionsCorrespondence:
+  TURN-UP: ACTION_UP
+  TURN-DOWN: ACTION_DOWN
+  TURN-LEFT: ACTION_LEFT
+  TURN-RIGHT: ACTION_RIGHT
+  MOVE-UP: ACTION_UP
+  MOVE-DOWN: ACTION_DOWN
+  MOVE-LEFT: ACTION_LEFT
+  MOVE-RIGHT: ACTION_RIGHT
+  MOVE-UP-GET-GEM: ACTION_UP
+  MOVE-DOWN-GET-GEM: ACTION_DOWN
+  MOVE-LEFT-GET-GEM: ACTION_LEFT
+  MOVE-RIGHT-GET-GEM: ACTION_RIGHT
+  DIG-UP: ACTION_UP
+  DIG-DOWN: ACTION_DOWN
+  DIG-LEFT: ACTION_LEFT
+  DIG-RIGHT: ACTION_RIGHT
+  EXIT-LEVEL: null
+goals:
+- goalPredicate: null
+  priority: 0
+  saveGoal: false
+  removeReachedGoalsList:
+  - null
+\end{lstlisting}
+
+Los campos que se generan de forma automática son \texttt{domainFile}, \texttt{problemFile},
+\texttt{domainName} y \texttt{actionsCorrespondence}.
