@@ -197,8 +197,8 @@ se selecciona de la siguiente forma:
     \item Si no quedan objetivos en ambas listas, significa que se han alcanzado todos los objetivos.
 \end{enumerate}
 
-El método \texttt{haltCurrentGoal} establece mueve el objetivo actual a la lista \texttt{preemptedGoals}
-y establece que no hay ningún objetivo actual, de forma que se debe establecer uno.
+El método \texttt{haltCurrentGoal} mueve el objetivo actual a la lista \texttt{preemptedGoals}
+y establece que no hay ningún objetivo actual, de forma que se debe seleccionar uno nuevo.
 
 \subsection{La clase \texttt{PDDLAction}}
 
@@ -230,7 +230,8 @@ clase \texttt{PDDLAction}. Es el constructor de esta clase el que construye dich
 cada acción de forma individual a partir de la respuesta del planificador. Además, el resultado obtenido
 es posteriormente filtrado, de manera que las acciones nulas (aquellas que no tienen una correspondencia)
 son eliminadas del plan. Por tanto, el constructor de la clase realiza parte del trabajo que realiza el
-\textbf{traductor del plan}.
+\textbf{traductor del plan}. El método \texttt{iterator} devuelve un iterador que permite recorrer el plan
+de manera sencilla.
 
 \section{Validación del \textit{software}}
 
