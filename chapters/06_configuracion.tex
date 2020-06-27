@@ -319,13 +319,12 @@ goals:
   saveGoal: no
     \end{lstlisting}
     
-    Aquí se indica que el agente debe recolectar 9 gemas en cualquier orden y que, una vez que las ha obtenido,
-    debe salir del nivel. Al tener todas las gemas la misma prioridad, no importa en qué orden se cojan.
-    Lo único que importa es que se cojan todas las gemas antes de intentar salir del nivel. Aparte,
-    ninguno de estos objetivos tiene que ser guardado, y ninguno tiene una lista de objetivos a
-    eliminar una vez que se haya alcanzado. Es importante destacar que, a la hora de indicar los objetivos,
-    las variables de los predicados se sustituyen por instancias concretas. Por ejemplo, si nos fijamos
-    en el primer objetivo, vemos que el predicado con la variable instanciada es \texttt{(got g\_5\_3)} (hay
-    una gema en la posición $x = 5, y= 7$ ), mientras que el predicado como tal sería \texttt{(got ?g)}. Por tanto,
-    es necesario conocer cómo se instancian las variables, así como también la posición de los elementos en el mapa.
+    Aquí se indica que el agente primero debe recoger 9 gemas en cualquier orden (debido a que tienen la misma
+    prioridad) y que, una vez que las ha obtenido, debe salir del nivel. Ninguno de estos objetivos tiene que ser
+    guardado, y ninguno tiene una lista de objetivos a eliminar una vez que se haya alcanzado. Es importante destacar
+    que, a la hora de indicar los objetivos, las variables de los predicados se sustituyen por objetos (instancias
+    concretas de las variables). Por ejemplo, si nos fijamos en el primer objetivo, vemos que el predicado con la
+    variable instanciada es \texttt{(got g\_5\_3)} (hay una gema en la posición $x = 5, y= 7$ ), mientras que el
+    predicado como tal sería \texttt{(got ?g)}. Por tanto, es necesario conocer cómo se instancian las variables,
+    así como también la posición de los elementos en el mapa.
 \end{enumerate}

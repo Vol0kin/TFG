@@ -77,11 +77,13 @@ La mayoría de atributos están bastante claros, aunque se quieren destacar los 
 son de especial interés:
 
 \begin{itemize}[label=\textbullet]
-    \item \texttt{PDDLGameStatePredicates}: Lista que contiene los predicados \texttt{PDDL} del estado
-    actual del juego. Estos predicados están asociados a las observaciones del juego.
+    \item \texttt{PDDLGameStatePredicates}: Lista que contiene todos los predicados \texttt{PDDL} del estado
+    actual del juego. Estos predicados están asociados a las observaciones del juego y a las relaciones
+    de conectividad entre las casillas.
     
     \item \texttt{PDDLGameStateObjects}: Diccionario que relaciona las variables definidas en el archivo
-    de configuración con las instancias de dichas variables en el estado actual del juego.
+    de configuración con los objetos del juego que se han construido utilizando dicha variable (instancias
+    concretas de la variable).
     
     \item \texttt{iterPlan}: Iterador que permite recorrer de forma sencilla el plan generado.
     
@@ -91,9 +93,8 @@ son de especial interés:
     \item \texttt{mustPlan}: Variable booleana que indica si se debe planificar o no.
     
     \item \texttt{connectionSet}: Conjunto que contiene los predicados asociados a las relaciones
-    de conectividad de las celdas. Se separa de los predicados del estado actual del juego debido
-    a que estas relaciones no van a cambiar con el tiempo, con lo cual generarlas una sola vez
-    es suficiente.
+    de conectividad de las celdas. Estos predicados se tienen guardados aparte ya que solo se
+    generan una vez al principio de la partida y posteriormente se añaden a \texttt{PDDLGameStatePredicates}.
     
     \item \texttt{gameElementVars}: Diccionario que relaciona los elementos del juego y las
     variables asociadas a estos elementos.
