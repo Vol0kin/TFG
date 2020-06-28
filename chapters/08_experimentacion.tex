@@ -17,10 +17,15 @@ los cuales pretenden poner a prueba dos aspectos fundamentales del sistema:
 
 Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 
+% Comentar aquí los juegos, relacionandolos con las imagenes
 \begin{itemize}[label=\textbullet]
     \item \textbf{\textit{Boulderdash}}. El objetivo del juego consiste en recoger 9 de
     las gemas que hay esparcidas a lo largo de todo el mapa y llegar hasta la salida,
     esquivando a los enemigos (escorpiones y mariposas)
+    
+    \item \textbf{\textit{Ice and Fire}}.
+    
+    \item \textbf{\textit{Labyrinth Dual}}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -48,6 +53,8 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
     \label{fig:games}
 \end{figure}
 
+% Comentar los dominios creados
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|ccc|}
@@ -61,7 +68,12 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 \label{tab:info-domains}
 \end{table}
 
+% Explicar que se han cambiado algunos parametros del entorno
+
 \section{Generación de problemas}
+
+% Comentar experimentacion llevada a cabo y resultados por encima, diciendo que
+% si no se usase este sistema la generación manual podría tardar días/semanas
 
 \begin{landscape}
 \begin{table}[]
@@ -102,3 +114,31 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 \end{landscape}
 
 \section{Respuesta a cambios dinámicos}
+
+% Comentar brevemente qué se ha hecho
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{img/CH08/discrepancy_1.png}
+        \caption{Estado inicial del juego.}
+        \label{fig:discrepancy_1}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{img/CH08/discrepancy_2.png}
+        \caption{Mariposa bloquea el camino.}
+        \label{fig:discrepancy_2}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{img/CH08/discrepancy_3.png}
+        \caption{Agente cambia de objetivo y lo alcanza.}
+        \label{fig:discrepancy_3}
+    \end{subfigure}
+    \caption{Ejemplo de respuesta a cambios dinámicos en el entorno.}
+    \label{fig:discrepancies}
+\end{figure}
