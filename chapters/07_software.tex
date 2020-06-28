@@ -10,7 +10,7 @@ El sistema completo ha sido implementado utilizando \texttt{Python} y \texttt{Ja
 El primer lenguaje se ha utilizado para crear el \textit{script} que permite
 automatizar la generación de archivos de configuración plantilla, mientras que el segundo
 se ha utilizado para implementar el resto de la arquitectura, ya que el entorno
-\texttt{GVG-AI} fue originalmente escrito en \texttt{Java}. Todo el código fuente
+\texttt{GVGAI} fue originalmente escrito en \texttt{Java}. Todo el código fuente
 se encuentra disponible en un repositorio público de \texttt{GitHub}, con lo cual
 cualquiera puede acceder a él.
 
@@ -42,7 +42,7 @@ qué funcionalidades exponen.
 En la figura \ref{fig:package_diagram} se puede apreciar cómo se relaciona el paquete
 que encapsula el sistema, \texttt{controller}, con otros paquetes. Puede verse que el paquete del sistema
 accede a las funcionalidades que se pueden encontrar en algunos de los paquetes que ofrece el entorno de
-\texttt{GVG-AI}. También se puede observar que se accede a funcionalidad de módulos externos, como por
+\texttt{GVGAI}. También se puede observar que se accede a funcionalidad de módulos externos, como por
 ejemplo a \texttt{kong.unirest} y a su subpaquete \texttt{json} y al paquete \texttt{org.yaml.snakeyaml}
 y a su subpaquete \texttt{constructor}.
 
@@ -64,7 +64,7 @@ a pasar a comentar de forma general las clases que lo conforman.
 
 Esta es la clase que representa el agente implementado, el cual combina una componente deliberativa
 (la planificación) con una componente reactiva (el monitor). Hereda de la clase abstracta
-\texttt{AbstractPlayer}, la cual es proporcionada por el entorno de \texttt{GVG-AI}. Como
+\texttt{AbstractPlayer}, la cual es proporcionada por el entorno de \texttt{GVGAI}. Como
 tal no se instancia si no que se le indica al entorno la ruta de la clase que se quiere ejecutar.
 Si se quiere configurar de alguna forma o acceder a las estadísticas una vez se ha completado
 el juego, se deben utilizar los métodos estáticos proporcionados (ver figura \ref{fig:class_diagram}).
@@ -204,7 +204,7 @@ y establece que no hay ningún objetivo actual, de forma que se debe seleccionar
 \subsection{La clase \texttt{PDDLAction}}
 
 Esta clase representa una instancia de una acción \texttt{PDDL}. Está formada por la acción instanciada
-(\texttt{actionInstance}), la correspondiente acción \texttt{GVG-AI} (\texttt{GVGAIAction}), una lista
+(\texttt{actionInstance}), la correspondiente acción \texttt{GVGAI} (\texttt{GVGAIAction}), una lista
 de precondiciones instanciadas (\texttt{preconditions}) una lista de efectos instanciados (\texttt{effects}).
 Cuando se habla de instancias se hace referencia a que las variables han sido sustituidas por elementos
 concretos del estado de observación actual del juego, en formato \texttt{PDDL} como es de suponer.

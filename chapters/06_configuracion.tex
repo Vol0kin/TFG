@@ -252,9 +252,9 @@ connections:
     situada en la posición $(x+1, y)$.
     
     \item \texttt{actionsCorrespondence}: Correspondencia entre las acciones definidas en el dominio
-    \texttt{PDDL} y las acciones de \texttt{GVG-AI}. Las acciones \texttt{PDDL} se obtienen
+    \texttt{PDDL} y las acciones de \texttt{GVGAI}. Las acciones \texttt{PDDL} se obtienen
     a partir del archivo de dominio. Si el nombre de la acción \texttt{PDDL} contiene ciertos
-    patrones, se produce una traducción automática a una acción de \texttt{GVG-AI}:
+    patrones, se produce una traducción automática a una acción de \texttt{GVGAI}:
     
     \begin{itemize}[label=\textbullet]
         \item Si contiene \textit{up}, la acción se traduciría como \texttt{ACTION\_UP}.
@@ -263,7 +263,7 @@ connections:
         \item Si contiene \textit{right}, la acción se traduciría como \texttt{ACTION\_RIGHT}.
         \item Si contiene \textit{use}, la acción se traduciría como \texttt{ACTION\_USE}.
         \item Si no contiene ninguno de los patrones anteriores, se traduciría como \texttt{null},
-        dejándole al usuario la tarea de asignarle un acción de \texttt{GVG-AI}, si es que la hay.
+        dejándole al usuario la tarea de asignarle un acción de \texttt{GVGAI}, si es que la hay.
     \end{itemize}
     
     Obviamente, el usuario puede modificar las traducciones a su gusto. Las acciones que tienen

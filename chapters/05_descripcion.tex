@@ -144,14 +144,14 @@ por el generador de problemas. La salida que genera es un plan compuesto por acc
 
 Este componente funcional tiene la tarea de traducir los planes generados por el planificador,
 los cuáles están formados de acciones \texttt{PDDL} a planes que sean interpretables por el entorno
-de juego, es decir, planes formados por acciones \texttt{GVG-AI}. Para cada una de estas acciones
+de juego, es decir, planes formados por acciones \texttt{GVGAI}. Para cada una de estas acciones
 se encarga de extraer también sus precondiciones y efectos instanciados, es decir, con los objetos
 concretos del estado \texttt{PDDL} del juego. Esta información se puede utilizar luego en el monitor
 para el estudio de las discrepancias.
 
 El módulo funcional recibe como entrada el plan obtenido por el planificador y la correspondencia
-entre acciones \texttt{PDDL} y \texttt{GVG-AI}, la cual proviene del fichero de configuración. Genera
-como salida el plan traducido a acciones de \texttt{GVG-AI} junto con las precondiciones y efectos
+entre acciones \texttt{PDDL} y \texttt{GVGAI}, la cual proviene del fichero de configuración. Genera
+como salida el plan traducido a acciones de \texttt{GVGAI} junto con las precondiciones y efectos
 instanciados de cada acción del plan. Dicha salida es enviada al ejecutor del plan.
 
 \section{Módulo de ejecución del plan y monitorización}
