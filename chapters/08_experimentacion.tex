@@ -4,8 +4,49 @@
 
 \chapter{Experimentación}
 
-Una vez que el sistema ha sido implementado y se ha validado el correcto funcionamiento
-de las funcionalidades desarrolladas,
+Una vez que el sistema ha sido implementado y validado, es necesario realizar un estudio
+de su funcionamiento. Este estudio consiste en llevar a cabo una serie de experimentos,
+los cuales pretenden poner a prueba dos aspectos fundamentales del sistema:
+
+\begin{enumerate}
+    \item La capacidad que tiene para generar problemas \texttt{PDDL} de forma
+    automática a partir de los estados del juego.
+    \item La capacidad que tiene para responder a los cambios dinámicos que
+    se producen en los juegos.
+\end{enumerate}
+
+Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{\textit{Boulderdash}}. El objetivo del juego consiste en recoger 9 de
+    las gemas que hay esparcidas a lo largo de todo el mapa y llegar hasta la salida,
+    esquivando a los enemigos (escorpiones y mariposas)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{.5\textwidth}
+        \centering
+        \includegraphics[scale=0.3]{img/CH08/boulderdash.png}
+        \caption{\textit{Boulderdash}.}
+        \label{fig:boulderdash}
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{img/CH08/ice_and_fire.png}
+        \caption{\textit{Ice and Fire}.}
+        \label{fig:ice_and_fire}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{img/CH08/labyrinth_dual.png}
+        \caption{\textit{Labyrinth Dual}.}
+        \label{fig:labyrinth_dual}
+    \end{subfigure}
+    \caption{Juegos con los que se han realizado los experimentos.}
+    \label{fig:games}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -20,11 +61,8 @@ de las funcionalidades desarrolladas,
 \label{tab:info-domains}
 \end{table}
 
+\section{Generación de problemas}
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-% \usepackage{graphicx}
-% \usepackage{lscape}
 \begin{landscape}
 \begin{table}[]
 \centering
@@ -62,3 +100,5 @@ de las funcionalidades desarrolladas,
 \label{tab:exp-results}
 \end{table}
 \end{landscape}
+
+\section{Respuesta a cambios dinámicos}
