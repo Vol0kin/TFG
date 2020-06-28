@@ -20,12 +20,48 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 % Comentar aquí los juegos, relacionandolos con las imagenes
 \begin{itemize}[label=\textbullet]
     \item \textbf{\textit{Boulderdash}}. El objetivo del juego consiste en recoger 9 de
-    las gemas que hay esparcidas a lo largo de todo el mapa y llegar hasta la salida,
-    esquivando a los enemigos (escorpiones y mariposas)
+    las gemas que hay esparcidas a lo largo de todo el mapa y llegar a la salida
+    sin morir en el intento (ver figura \ref{fig:boulderdash}). En el mapa hay también
+    esparcidos dos tipos de enemigos: las mariposas y los cangrejos, los cuales matarán al agente
+    si chocan con él. Si dos enemigos chocan entre sí, se generará una gema nueva. En el
+    juego original, las rocas son afectadas por la gravedad, de manera que si la casilla debajo de una
+    de ellas está excavada (es decir, es una casilla vacía), la roca caerá hasta toparse
+    con una casilla que contenga tierra, un muro, una gema u otra roca. Una roca cayendo puede matar
+    al agente si colisiona con este. Sin embargo, debido a la extrema dificultad que supone
+    simular este sistema de físicas en un dominio \texttt{PDDL}, se trabaja con una versión
+    simplificada del juego donde las rocas no caen y pueden ser excavadas utilizando el pico
+    del que dispone el agente, de forma que estas rocas desaparecen del mapa.
     
-    \item \textbf{\textit{Ice and Fire}}.
+    Esta versión del juego, a pesar de ser simplificada, es no determinista, ya que el
+    comportamiento de los enemigos es totalmente aleatorio. Este no determinismo introduce
+    por tanto cierto dinamismo en el juego, ya que los enemigos pueden interponerse en el
+    camino del agente y matarlo. Es aquí donde el monitor va a jugar un papel clave,
+    ya que gracias a él se podrá determinar si algún enemigo se interpone entre el agente
+    y el objetivo al que se dirige.
     
-    \item \textbf{\textit{Labyrinth Dual}}.
+    \item \textbf{\textit{Ice and Fire}}. En este juego, el agente tiene que atravesar una especie
+    de laberinto hasta la salida, el cual está lleno de obstáculos como pinchos, fuego y hielo
+    (ver figura \ref{fig:ice_and_fire}). Estos obstáculos matarán al jugador si entra en contacto
+    directo con ellos. Sin embargo, las casillas que contienen fuego pueden ser atravesadas si el
+    agente dispone de unas botas de fuego. Análogamente, se pueden atravesar las casillas que
+    contienen hielo si se tienen las botas de hielo. Se pueden llevar equipados los dos tipos
+    de botas simultáneamente, de forma que se pueden atravesar ambos tipos de obstáculos. Los
+    pinchos, por desgracia, no pueden atravesarse. A lo largo del mapa hay también una serie
+    de monedas que pueden ser recogidas para aumentar la puntuación del jugador, aunque esto es más
+    bien secundario. Este juego es totalmente determinista ya que, al no haber enemigos u otros
+    personajes en el mapa, no se pueden llegar a producir eventos exógenos que obliguen a modificar
+    un plan obtenido.
+    
+    \item \textbf{\textit{Labyrinth Dual}}. Aquí el agente también tiene que atravesar un laberinto
+    hasta la salida esquivando los pinchos y atravesando una serie de casillas para las que requiere
+    un traje en específico de los que se pueden encontrar por el mapa (ver figura \ref{fig:labyrinth_dual}).
+    El traje rojo permite atravesar los muros de color gris oscuro y el traje azul permite atravesar
+    las muros de color azul. El agente solo puede llevar equipado un traje a la vez. Si ya tiene equipado
+    uno y coge el otro, se cambia de traje, perdiendo la capacidad de atravesar las casillas que
+    antes podía. Por tanto, hay que tener cierto cuidado a la hora de coger un traje, ya que
+    en algunas ocasiones cambiar de traje puede llegar a encerrar al agente, impidiéndole llegar
+    a la meta. A pesar de eso, el juego es totalmente determinista, ya que no hay factores
+    externos que puedan impedir que un plan hasta un objetivo determinado sea llevado a cabo.
 \end{itemize}
 
 \begin{figure}[H]
@@ -53,7 +89,13 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
     \label{fig:games}
 \end{figure}
 
-% Comentar los dominios creados
+Para cada juego se ha creado su dominio \texttt{PDDL}, intentando hacer una representación lo más
+fiel posible del juego. En la tabla \ref{tab:info-domains} puede el número de predicados, de tipos y
+de acciones que conforman cada uno de los dominios. Adicionalmente, debido a que la planificación es
+un proceso lento, es importante destacar que a la hora de construir el sistema se han modificado tanto el
+tiempo máximo que tiene el agente para dar una respuesta, el cual ha pasado a ser 40 segundos (originalmente 40
+milisegundos), como el tiempo máximo que se espera antes de descalificar al agente, el cual es ahora
+500 segundos (anteriormente 50 milisegundos).
 
 \begin{table}[H]
 \centering
@@ -68,17 +110,50 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 \label{tab:info-domains}
 \end{table}
 
-% Explicar que se han cambiado algunos parametros del entorno
-
 \section{Generación de problemas}
 
-% Comentar experimentacion llevada a cabo y resultados por encima, diciendo que
-% si no se usase este sistema la generación manual podría tardar días/semanas
+Para comprobar la generación de problemas se han hecho pruebas con cada uno de los cinco
+niveles de los tres juegos anteriormente mencionados. Para cada nivel de cada juego se ha
+creado un archivo de configuración en el cual se ha especificado la información correspondiente,
+además de decir los objetivos concretos que se deben alcanzar en cada nivel. En cada ejecución se
+ha obtenido información del número de predicados y objetos que que conforman el estado inicial
+del primer archivo de problema generado\footnote{En general, va a haber muy poca variabilidad entre
+dichos números para archivos de problema posteriores, y como en algunos juegos hay más
+elementos al principio del juego, esto nos da una idea de cuánto se tarda en generar el problema más
+grande.}, el tiempo total de ejecución desde que empieza el juego, el tiempo de generación
+de los predicados de conectividad entre casillas, el tiempo medio de traducción de
+un estado de observación, el tiempo medio de generación un archivo de problema
+y la suma de los tres tiempos anteriores, lo cual nos da una idea de cuánto se tarda en
+generar un problema completo de media. Se han realizado 3 ejecuciones de cada nivel, de modo
+que los resultados obtenidos para los tiempos son una media de esas tres ejecuciones.
+
+En la tabla \ref{tab:exp-results} se pueden ver los resultados obtenidos. Como puede observarse,
+en todos los casos se generan problemas con más de 1000 predicados y cerca de 350-400 objetos.
+Puede verse también que el tiempo medio total para generar un problema es del orden de centésimas
+de segundo. Generar problemas de este tamaño a mano podría llevar días e incluso semanas, además de
+que se pueden cometer errores a la hora de crearlos, lo cual puede retrasar dicha creación aún
+más tiempo. Por tanto, hacer uso de esta arquitectura permite ahorrar muchísimo tiempo de trabajo
+y permite detectar de forma más rápida los posibles errores que puedan aparecer a la hora de crear
+un archivo de problema.
+
+Si observamos los tiempos individuales que suman dicho tiempo total de generación de problema, se
+puede ver que las fases de traducción del estado de observación y la generación del archivo
+de problema tienen un tiempo medio del orden de milésimas de segundo, mientras que el proceso
+que más tarda es la generación de los predicados de conectividad, el cual tarda un tiempo medio
+del orden de las centésimas de segundo. Esto es normal, ya que los predicados de conectividad representan
+una gran parte de los predicados del problema. Para un mapa dado de tamaño $w \times h$, siendo $w$
+la anchura y $h$ la altura, el número de predicados de conectividad, $PC$, viene dado por la expresión
+\eqref{eq:pc}:
+
+\begin{equation}
+    PC = 4 \cdot 2 \; pred + 2 ((w-2) + (h-2)) \cdot 3 \; pred + (w-2)(h-2) \cdot 4 \; pred
+    \label{eq:pc}
+\end{equation}
 
 \begin{landscape}
 \begin{table}[]
 \centering
-\resizebox{1.5\textwidth}{!}{%
+\resizebox{1.51\textwidth}{!}{%
 \begin{tabular}{|c|c|cccccccc|}
 \hline
 \textbf{Juego} &
@@ -87,7 +162,7 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
   \textbf{\begin{tabular}[c]{@{}c@{}}Predicados problema\\ inicial\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Objetos problema\\ inicial\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ ejecución (s)\end{tabular}} &
-  \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ predicados\\ conectividad (s)\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ generación predicados\\ conectividad (s)\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ traducción estado\\ de observación (s)\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio\\ generación archivo\\ de problema (s)\end{tabular}} &
   \textbf{\begin{tabular}[c]{@{}c@{}}Tiempo medio total\\ generación problema\\ (s)\end{tabular}} \\ \hline
@@ -115,30 +190,48 @@ Para llevar a cabo estos experimentos se han escogido los siguientes juegos:
 
 \section{Respuesta a cambios dinámicos}
 
-% Comentar brevemente qué se ha hecho
+Para facilitar el estudio de la respuesta que ofrece el sistema a los cambios dinámicos en
+los juegos, se ha creado un nuevo nivel del juego \textit{Boulderdash}, que es el
+único de la lista que contiene no determinismo al tener enemigos que se mueven por el mapa
+aleatoriamente, y se ha fijado una semilla aleatoria, de forma que el comportamiento de los enemigos
+fuese el deseado. El nuevo nivel puede observarse en la figura \ref{fig:discrepancy_1}. Se ha creado
+también un archivo de configuración en el cual se han especificado qué gemas tiene que coger
+el agente antes de salir del nivel. La primera de ellas es la gema que está justo encima suyo,
+la cual está rodeada de enemigos.
+
+Después de obtener un plan hasta dicha gema, comienza la ejecución de éste. Mientas el agente
+intenta avanzar, una mariposa se le cruza en el camino, tal y como puede verse en la figura
+\ref{fig:discrepancy_2}. El monitor, al hacer un estudio de las precondiciones de la siguiente
+acción a ejecutar, detecta una discrepancia, ya que la celda justo arriba del agente está
+ocupada por un enemigo, algo que no se esperaba. Es entonces cuando se le indica al gestor
+de objetivos que se ha producido una discrepancia y que se debe seleccionar un nuevo objetivo,
+que resulta ser la gema que se encontraba a la izquierda de la posición inicial del agente.
+
+Se obtiene un plan hasta dicha gema y, tal y como se puede ver en la figura \ref{fig:discrepancy_3},
+el agente alcanza el nuevo objetivo propuesto. Vemos por tanto que el agente ha conseguido
+responder a la aparición de un enemigo en su camino, algo que no estaba previsto cuando obtuvo
+el plan, deteniendo por tanto la ejecución del plan actual y cambiando a un nuevo objetivo.
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{\textwidth}
+    \begin{subfigure}[t]{0.32\textwidth}
         \centering
-        \includegraphics[scale=0.25]{img/CH08/discrepancy_1.png}
+        \includegraphics[scale=0.2]{img/CH08/discrepancy_1.png}
         \caption{Estado inicial del juego.}
         \label{fig:discrepancy_1}
-    \end{subfigure}
-    \par\bigskip
-    \begin{subfigure}{\textwidth}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.32\textwidth}
         \centering
-        \includegraphics[scale=0.25]{img/CH08/discrepancy_2.png}
+        \includegraphics[scale=0.2]{img/CH08/discrepancy_2.png}
         \caption{Mariposa bloquea el camino.}
         \label{fig:discrepancy_2}
-    \end{subfigure}
-    \par\bigskip
-    \begin{subfigure}{\textwidth}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.32\textwidth}
         \centering
-        \includegraphics[scale=0.25]{img/CH08/discrepancy_3.png}
+        \includegraphics[scale=0.2]{img/CH08/discrepancy_3.png}
         \caption{Agente cambia de objetivo y lo alcanza.}
         \label{fig:discrepancy_3}
     \end{subfigure}
-    \caption{Ejemplo de respuesta a cambios dinámicos en el entorno.}
+    \caption{Ejemplo de respuesta a cambios dinámicos en el entorno en \textit{Boulderdash}.}
     \label{fig:discrepancies}
 \end{figure}
