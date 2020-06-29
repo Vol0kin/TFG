@@ -43,12 +43,82 @@ Para resolver problemas de planificación se requieren tres elementos:
     planificación.
 \end{itemize}
 
-El lenguaje que principalmente se utiliza en planificación es \texttt{PDDL}
-(\textit{Planning Domain Definition Language}). Este lenguaje surgió a finales de los 90
-como un intento de estandarizar los lenguajes que se utilizan para describir los dominios
-y problemas de planificación y, a medida que fueron pasando los años, fue evolucionando, añadiendo
-nuevas características.
+La planificación ha supuesto un gran impacto en la IA, ya que ha permitido el desarrollo
+de agentes cuya componente deliberativa se basa en dichas técnicas. Estos agentes, normalmente,
+siguen una arquitectura basada en \textbf{planificación}, \textbf{percepción} y \textbf{ejecución}:
 
+\begin{itemize}
+    \item La componente de \textbf{planificación} ya es conocida. Permite obtener una serie
+    de accione que permiten al agente alcanzar un objetivo determinado.
+    \item La componente de \textbf{percepción} permite al agente obtener información sobre
+    su entorno, utilizando para ello sensores. Estos sensores pueden ser reales (por ejemplo
+    una cámara) o simulados (por ejemplo, en un videojuego se puede simular lo que
+    ve un agente, simulando así una cámara).
+    \item La componente de \textbf{ejecución} permite ejecutar el plan y controlar su ejecución
+    en todo momento, de forma que se puede saber por ejemplo cuando detener la ejecución. Normalmente
+    de esto último se encarga un módulo de \textbf{monitorización}, el cual está incluido en la componente
+    de ejecución.
+\end{itemize}
+
+A pesar de que la planificación ha sido integrada con éxito en ciertas áreas, como por ejemplo la robótica,
+los vehículos no tripulados o los sistemas de producción, hay un área en el cual su integración es más
+complicada: los videojuegos. El motivo de esto se debe a que la mayoría de videojuegos presentan
+entornos dinámicos en cambio continuo y/o con un número extremadamente alto de acciones entre las que escoger.
+Planificar suele ser un proceso costoso, ya que los espacios de búsqueda suelen ser bastante grandes y por tanto,
+suelen ofrecer una respuesta relativamente lenta. Al estar estos entornos en cambio continuo,
+un plan que se haya obtenido deja de ser válido al cabo de poco tiempo, lo cual implica estar
+replanificando constantemente. En un estudio realizado \cite{10.1111/coin.12079} se ha visto que en entornos
+de este tipo (muy dinámicos) o muy grandes, un agente reactivo es capaz de ofrecer una respuesta similar
+a la que permite obtener una arquitectura basada en planificación solo que en un tiempo muchísimo menor. 
+
+\subsection{\texttt{PDDL}}
+
+\texttt{PDDL} (\textit{Planning Domain Definition Language}) \cite{pddl} es uno de los lenguajes más utilizados
+para la representación de dominios y problemas de planificación. Surgió a finales de los 90
+como un intento de estandarizar los lenguajes que se utilizan para describir los dominios
+y problemas de planificación. Desde su aparición, el lenguaje ha experimentado una serie de cambios que
+han añadido funcionalidad nueva al lenguaje. Además, a partir de él han surgido otros lenguajes de planificación.
+
+Un dominio de planificación de \texttt{PDDL} puede contener los siguientes elementos:
+
+\begin{itemize}[label=\textbullet]
+    \item Un nombre de dominio. Este elemento es obligatorio
+    \item Unos requisitos del dominio, denotados por \texttt{:requirements}.
+    \item Uno o varios tipos, que representan de forma general los elementos que aparecen
+    en el entorno. Se denotan por \texttt{:types}, y su uso, aunque no es obligatorio, simplifica
+    mucho la legibilidad del dominio.
+    \item Una serie de predicados, los cuales expresan características de los elementos
+    y del entorno. Se denotan mediante \texttt{:predicates}. Su uso es obligatorio.
+    \item Funciones, las cuales son predicados que almacenan un valor numérico. Se denotan
+    mediante \texttt{:functions} y su uso no es obligatorio.
+    \item Acciones, las cuales representan la manera en la que el agente interactúa con
+    el entorno y los elementos de éste. Se denotan utilizando \texttt{:action}.
+    
+    Una acción se compone de unos \textbf{parámetros} (representados por \texttt{:parameters}), que son
+    una serie de instancias concretas u objetos; unas \textbf{precondiciones} (\texttt{:precondition}),
+    que son una serie de predicados que se tienen que cumplir en el estado actual del problema cuando
+    se sustituyen las variables de dichos predicados por las instancias concretas recibidas como parámetro;
+    y una lista de \textbf{efectos} (\texttt{:effect}), la cual indica como cambia el entorno cuando
+    el agente realiza dicha acción.
+\end{itemize}
+
+Por otro lado, un problema de planificación de \texttt{PDDL} se compone de los siguientes elementos:
+
+\begin{itemize}[label=\textbullet]
+    \item Un nombre de problema.
+    \item El dominio \texttt{PDDL} que se utiliza en el problema, denotado por \texttt{:domain}.
+    \item Una lista de instancias que componen el estado del problema, denotada por \texttt{:objects}.
+    \item Una lista con los predicados instanciados que indican el estado inicial
+    del problema. Esta lista se denota mediante \texttt{:init}.
+    \item Una serie de objetivos que se deben alcanzar, denotados por \texttt{:goal}.
+\end{itemize}
+
+Para entenderlo mejor, vamos a ver un pequeño ejemplo. Supongamos que queremos representar un
+dominio en el que hay dos tipos de elementos: monedas y frascos. Una persona puede coger una moneda,
+la cual se encuentra en el suelo, y puede ponerla en un frasco. Solo se puede coger una moneda a la vez.
+Además, se quiere llevar la cuenta de cuántas monedas hay en un frasco.
+
+El dominio \texttt{PDDL} que representaría dicha descripción sería el siguiente:
 
 \begin{lstlisting}[language=PDDL,caption={Ejemplo de dominio \texttt{PDDL}.},captionpos=b]
 (define (domain COINS)
@@ -90,6 +160,12 @@ nuevas características.
 )
 \end{lstlisting}
 
+Ahora, vamos a suponer que queremos representar un problema en el que hay tres monedas
+(\texttt{c1}, \texttt{c2} y \texttt{c3}) y un frasco (\texttt{j1}). Las tres monedas están en
+el suelo y no hay ninguna en el frasco. Queremos conseguir que en el frasco haya dos monedas y que una
+de ellas, \texttt{c1}, esté dentro del frasco. El problema \texttt{PDDL} que representaría la descripción
+anterior es el siguiente:
+
 \begin{lstlisting}[language=PDDL,caption={Ejemplo de problema \texttt{PDDL}.},captionpos=b]
 (define (problem CoinProblem)
   (:domain COINS)
@@ -113,12 +189,43 @@ nuevas características.
 )
 \end{lstlisting}
 
-%% COMENTAR ESTO
-%Para representar los dominios y los problemas de planificación se utiliza la lógica
-%de predicados. 
+Como es de suponer \texttt{PDDL} contiene muchos otros elementos. De entre ellos se quieren destacar los efectos
+condicionales. Estos son efectos de una acción que tienen lugar siempre y cuando las condiciones sean satisfechas
+en el estado actual del problema. Un ejemplo de esto se puede ver en la siguiente acción, la cual se ha extraído
+de un dominio escrito para un juego de \texttt{GVGAI} llamado \textit{Ice and Fire}:
+
+\begin{lstlisting}[language=PDDL, caption={Ejemplo de efecto condicional.},captionpos=b]
+  (:action pick-boots
+    :parameters (?a - Avatar ?c - Cell ?b - Boots)
+    :precondition (and
+      (at ?a ?c)
+      (at ?b ?c)
+    )
+    :effect (and
+      (when
+        (fire-boots ?b)
+        (has-fire-boots ?a)
+      )
+      (when
+        (ice-boots ?b)
+        (has-ice-boots ?a)
+      )
+      (not (at ?b ?c))
+    )
+  )
+\end{lstlisting}
+
+El funcionamiento del juego se explicará más detalladamente en capítulos posteriores. De aquí
+lo único que hace falta entender es que con esta acción un avatar intenta coger unas botas cuando
+ambos están en la misma casilla y, dependiendo del tipo de las botas, se indica que
+el avatar posee uno u otro tipo de botas.
 
 \section{\texttt{GVGAI}}
 
-\texttt{GVGAI}
+\texttt{GVGAI} (General Video Game AI) \cite{7038214} es un entorno de juegos que permite
+el desarrollo de agentes basados en Inteligencia Artificial General, es decir, agentes que sean
+capaces de resolver múltiples juegos en vez de solo uno en concreto.
+
+
 
 \subsection{\texttt{VGDL}}
