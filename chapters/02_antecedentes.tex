@@ -224,8 +224,29 @@ el avatar posee uno u otro tipo de botas.
 
 \texttt{GVGAI} (General Video Game AI) \cite{7038214} es un entorno de juegos que permite
 el desarrollo de agentes basados en Inteligencia Artificial General, es decir, agentes que sean
-capaces de resolver múltiples juegos en vez de solo uno en concreto.
+capaces de resolver múltiples juegos en vez de solo uno en concreto. Cuenta con más de 100 juegos,
+cada uno de los cuales presenta características particulares.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{img/CH02/zelda.png}
+    \caption{Juego \textit{Zelda} en \texttt{GVGAI}}.
+    \label{fig:zelda}
+\end{figure}
 
+El entorno está pensado para el desarrollo de agentes reactivos, los cuales se basan por ejemplo en
+Aprendizaje por Refuerzo, Algoritmos Genéticos o MCTS (\textit{Monte Carlo Tree Search}). Esto, entre
+otras cosas, implica que los tiempos de respuesta de los agentes tienen que ser pequeños. Por tanto,
+los agentes deliberativos se encuentran con un problema aquí, ya que suelen tardar más tiempo en ofrecer
+una respuesta. Y, como sabemos, los planificadores tardan algún tiempo en dar con una solución. Pero además,
+existe otro problema, que es la representación de los juegos y de las acciones del agente en
+dominios de planificación. Este proceso puede llegar a ser extremadamente complejo dependiendo
+del juego, ya que hay comportamientos que no pueden ser modelados de forma sencilla dentro del juego.
+Además, supone cierto esfuerzo crear los dominios y validarlos, ya que hay que entender muy bien las reglas
+del juego y las interacciones que pueden suceder. Esto, sin embargo, no significa que integrar una arquitectura
+basada en planificación en el entorno sea imposible, pero sí que requiere algo más de trabajo.
 
 \subsection{\texttt{VGDL}}
+
+\texttt{VGDL} (Video Game Description Language) \cite{Schaul2013AVG} es un lenguaje que se
+utiliza para la descripción de juegos.
