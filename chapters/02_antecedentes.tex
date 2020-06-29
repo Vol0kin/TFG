@@ -25,8 +25,97 @@ planificación.
 
 \section{Planificación automática}
 
-La planificación automática
+La planificación automática es un área de la IA que se encarga del estudio de
+técnicas que permiten resolver problemas en los que, dado un objetivo determinado,
+se debe buscar una serie de acciones que permitan alcanzarlo \cite{10.5555/3073924}.
 
+Para resolver problemas de planificación se requieren tres elementos:
+
+\begin{itemize}[label=\textbullet]
+    \item Un \textbf{dominio de planificación}, el cual representa un entorno y las acciones
+    que puede realizar un actuador en ese entorno, además de cómo dichas acciones afectan
+    al entorno.
+    \item Un \textbf{problema de planificación}, en el cual representa un estado inicial
+    concreto de un entorno y un objetivo que debe ser alcanzado por el actuador.
+    \item Un \textbf{planificador}, que es un programa que recibe como entradas un dominio y un
+    problema de planificación y devuelve un conjunto de acciones ordenadas que debe realizar
+    el agente para alcanzar el objetivo desde el estado inicial descrito en el problema de
+    planificación.
+\end{itemize}
+
+El lenguaje que principalmente se utiliza en planificación es \texttt{PDDL}
+(\textit{Planning Domain Definition Language}). Este lenguaje surgió a finales de los 90
+como un intento de estandarizar los lenguajes que se utilizan para describir los dominios
+y problemas de planificación y, a medida que fueron pasando los años, fue evolucionando, añadiendo
+nuevas características.
+
+
+\begin{lstlisting}[language=PDDL,caption={Ejemplo de dominio \texttt{PDDL}.},captionpos=b]
+(define (domain COINS)
+  (:requirements :strips :typing :fluents)
+  (:types
+    Coin Jar
+  )
+  (:predicates
+    (in ?c - Coin ?j - Jar)
+    (on-floor ?c - Coin)
+    (taken ?c - Coin)
+    (empty-hand)
+  )
+  (:functions
+    (coins-in-jar ?j)
+  )
+  (:action pick
+     :parameters (?c - Coin)
+     :precondition (and
+       (empty-hand)
+       (on-floor ?c)
+     )
+     :effect (and
+       (not (empty-hand))
+       (not (on-floor ?c))
+       (taken ?c)
+     )
+  )
+  (:action store
+     :parameters (?c - Coin ?j - Jar)
+     :precondition (taken ?c)
+     :effect (and
+       (not (taken ?c))
+       (in ?c ?j)
+       (empty-hand)
+       (increase (coins-in-jar ?j) 1)
+     )
+  )
+)
+\end{lstlisting}
+
+\begin{lstlisting}[language=PDDL,caption={Ejemplo de problema \texttt{PDDL}.},captionpos=b]
+(define (problem CoinProblem)
+  (:domain COINS)
+  (:objects
+    c1 c2 c3 - Coin
+    j1 - Jar
+  )
+  (:init
+    (empty-hand)
+    (on-floor c1)
+    (on-floor c2)
+    (on-floor c3)
+    (= (coins-in-jar j1) 0)
+  )
+  (:goal
+    (AND
+      (in c1 j1)
+      (= (coins-in-jar j1) 2)
+    )
+  )
+)
+\end{lstlisting}
+
+%% COMENTAR ESTO
+%Para representar los dominios y los problemas de planificación se utiliza la lógica
+%de predicados. 
 
 \section{\texttt{GVGAI}}
 
