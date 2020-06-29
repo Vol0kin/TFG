@@ -3,3 +3,191 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Plan de trabajo}
+
+
+\section{Metodología de trabajo seguida}
+
+Desde el comienzo del proyecto se ha seguido una metodología de desarrollo ágil basada en
+Scrum. Cada semana o cada dos semanas se celebraba una reunión, la cual se realizaba de manera
+presencial o telemática mediante Skype o Google Meet. En dichas reuniones se exponía el trabajo
+desarrollado desde la última reunión, los problemas que habían surgido durante su desarrollo, se
+proponían algunas posibles soluciones para dichos problemas y se proponían una nueva serie de
+objetivos que debían cumplirse antes de la siguiente reunión. En dichos nuevos objetivos se
+consideraban, como era de esperar, los imprevistos que podían haber surgido durante el desarrollo
+de los objetivos anteriores.
+
+Seguir una metodología ágil como ésta ha facilitado el desarrollo del trabajo de manera sustancial.
+Gracias a ella se descompuso un trabajo que a priori era bastante grande en pequeños objetivos semanales,
+los cuales eran más abarcables y servían como guía para no perder de vista el objetivo principal del proyecto.
+
+\section{Temporización}
+
+En la figura \ref{fig:gantt-chart} se muestra la temporización seguida a lo largo del casi año que ha
+durado este proyecto. En dicho diagrama aparecen reflejadas las tareas que se han llevado a cabo durante
+este tiempo, las cuales se han agrupado según el tipo de trabajo que había que realizar.
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.5}{
+\begin{ganttchart}[%Specs
+     y unit title=0.5cm,
+     y unit chart=0.7cm,
+     vgrid,hgrid,
+     title height=1,
+     title label font=\bfseries\footnotesize,
+     bar/.style={fill=blue},
+     bar height=0.4,
+     group right shift=0,
+     group top shift=0.7,
+     group height=.3,
+     group peaks width={0.2},
+     inline]{1}{36}
+    %labels
+    \gantttitle{Jul}{3}
+    \gantttitle{Ago}{3}
+    \gantttitle{Sep}{3}
+    \gantttitle{Oct}{3}
+    \gantttitle{Nov}{3}
+    \gantttitle{Dic}{3}
+    \gantttitle{Ene}{3}
+    \gantttitle{Feb}{3}
+    \gantttitle{Mar}{3}
+    \gantttitle{Abr}{3}
+    \gantttitle{May}{3}
+    \gantttitle{Jun}{3}\\
+    % Setting group if any
+    \ganttgroup[inline=false]{Estudio}{1}{35}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Planificación}{1}{4}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Arquitecturas de planificación}{15}{15}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Bibliografía complementaria}{34}{35}\\
+    
+    \ganttgroup[inline=false]{Diseño}{2}{30}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Definición dominio PDDL inicial}{2}{3}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Almacenamiento y gestión de objetivos}{15}{17}
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{}{21}{21}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Arquitectura del agente}{21}{22}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Archivo de configuración del sistema}{24}{26}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Definición dominios PDDL nuevos juegos}{27}{28}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Funcionalidad del modo depuración}{29}{30}\\
+    
+    \ganttgroup[inline=false]{Implementación}{1}{32}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Integración de planificador en GVGAI}{1}{3}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Traducción automática de estados del juego}{5}{12}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Gestión de objetivos}{16}{17}
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{}{21}{23}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Control de discrepancias}{21}{23}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Generación automática de archivos de configuración}{26}{27}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Modo depuración}{30}{32}\\
+    
+    \ganttgroup[inline=false]{Validación}{33}{33}\\
+    \ganttbar[inline=false, bar/.style={fill=green}]{Creación de tests}{33}{33}\\
+    
+    \ganttgroup[inline=false]{Experimentación}{29}{35}\\
+    \ganttbar[inline=false, bar/.style={fill=pink}]{Estudio del control de discrepancias}{29}{30}\\
+    \ganttbar[inline=false, bar/.style={fill=pink}]{Estudio de la generación de problemas}{35}{35}\\
+    
+    \ganttgroup[inline=false]{Documentación}{22}{36} \\
+    \ganttbar[inline=false, bar/.style={fill=orange}]{Código fuente}{22}{33}\\
+    \ganttbar[inline=false, bar/.style={fill=orange}]{Memoria}{34}{36}
+\end{ganttchart}}
+    \caption{Diagrama de Gantt que muestra la temporización del proyecto.}
+    \label{fig:gantt-chart}
+\end{figure}
+
+\subsection{Estudio}
+
+El estudio fue una tarea que se llevó a cabo durante casi todo el ciclo de vida del proyecto.
+
+Primero se hizo un estudio de algunos trabajos que trataban el tema de la planificación, además de
+estudiar el funcionamiento de diversos planificadores para elegir el más adecuado para el problema
+que se intentaba resolver, aunque al final, para crear el sistema, nos decantamos por otro planificador
+que no se estudió en esta fase pero sí que era conocido.
+
+Después, a medida que el proyecto iba tomando forma, se hizo un estudio de una arquitectura reactiva
+y deliberativa basada en planificación que había sido propuesta por el director del proyecto. Dicha
+arquitectura sirvió como base para desarrollar la arquitectura final que hemos propuesto en este trabajo.
+
+Por último, a la vez que se comenzó con la redacción de este documento, se llevó a cabo un estudio
+de otros trabajos relacionados con éste, de forma que se pudiera ver dónde se situaba la propuesta
+de sistema que habíamos hecho con respecto a las propuestas que han hecho otros autores en el ámbito
+de la planificación en videojuegos. También se realizó la consulta de diversas fuentes, las cuales
+permitieron obtener información para la redacción de la parte de antecedentes presentada en el capítulo
+anterior.
+
+\subsection{Diseño}
+
+El diseño comenzó con la creación del primer dominio de planificación \texttt{PDDL}, el cual
+se usó en las primeras fases del proyecto. A medida que el proyecto iba tomando forma, y gracias
+al diseño propuesto por el director, se comenzó con el diseño de una estructura de datos que permitiese
+la gestión de los objetivos de manera sencilla. Solapándose con este proceso se comenzó también
+el desarrollo de la arquitectura general del agente, ya que ya se tenía una base lo suficientemente
+grande como para definirla.
+
+Una vez hecho esto, se comenzó con el diseño del archivo de configuración, el cual juega un papel
+muy importante en el sistema. Para ello se consideraron diversas propuestas, tanto de formato
+como de generación, hasta que se dio con el formato y el método más adecuados.
+
+Posteriormente, teniendo ya una forma de generar la información necesaria para ejecutar otros juegos
+de manera sencilla, se comenzó el diseño de dominios de planificación \texttt{PDDL} para una serie
+de nuevos juegos.
+
+Finalmente, a la vista de que el sistema estaba en sus últimas fases, se comenzó con el diseño de
+un modo depuración, el cuál permitiría obtener más información mientras se ejecutaba un juego.
+
+\subsection{Implementación}
+
+La implementación es, sin lugar a dudas, la tarea que más tiempo ha requerido a lo largo de
+todo el desarrollo.
+
+En una primera fase, el objetivo era integrar un planificador dentro de \texttt{GVGAI} para un
+juego en concreto, determinando manualmente la traducción de los elementos del juego a predicados
+\texttt{PDDL} dentro del código. De esta forma, se podían generar problemas de planificación \texttt{PDDL}
+a partir de las observaciones del juego.
+
+En una segunda fase se propuso conseguir una traducción automática de los estados del juego
+a predicados \texttt{PDDL}, la cual permitiese al usuario definir cómo se traducía cada elemento
+del juego, desacoplando por tanto dicha correspondencia entre elementos del juego y predicados \texttt{PDDL}
+del código. Este objetivo suponía un primer paso hacia la creación de una arquitectura que permitiese
+resolver múltiples juegos. En esta primera propuesta se utilizaron una serie de archivos en formato
+\texttt{JSON} que definían un conjunto de correspondencias que permitían la traducción automática
+de estados de observación del juego.
+
+Una vez conseguido esto, se comenzó a trabajar en la gestión automática de objetivos, aunque todavía no
+se habían conseguido desacoplar del código. Paralelamente a esto se comenzó a implementar el control de
+discrepancias en el sistema. De esta forma, se consiguió crear una estructura de datos que pudiese
+gestionar los objetivos en función de lo que sucedía dentro del juego.
+
+Después de estudiar algunos diseños para el archivo de configuración, se comenzó con la implementación
+de un generador que permitiese obtener un archivo de configuración plantilla a partir de un dominio
+de planificación \texttt{PDDL} especificado por el usuario y una descripción en \texttt{VGDL} del
+juego. Es aquí donde finalmente se desacoplaron los objetivos del código, permitiendo al usuario
+establecer los objetivos que quiera.
+
+En las últimas fases se implementó un modo depuración, el cual permitiría obtener maś información
+del sistema mientras se estuviese ejecutando el juego.
+
+\subsection{Validación}
+
+Una vez que el sistema fue completamente implementado, se realizó una validación de éste creando
+una serie de tests unitarios que debían pasar distintos componentes del sistema. Estos tests permitieron
+comprobar el correcto funcionamiento del código implementado, además de que gracia a ellos se pudieron
+detectar algunos fallos menores que habían pasado desapercibidos.
+
+\subsection{Experimentación}
+
+Teniendo el sistema casi totalmente implementado, se hizo un primer estudio para ver qué tal respondía
+el agente a las discrepancias que se podían dar a la hora de ejecutar un plan. Posteriormente, se llevó
+a cabo un segundo estudio que pretendía poner de manifiesto la rapidez del sistema para generar problemas
+de planificación \texttt{PDDL} a partir de estados de observación del juego.
+
+\subsection{Documentación}
+
+Por último, resta hablar de la documentación. Este es un proceso muy importante en cualquier
+proyecto, ya que permite conocer qué se ha llevado a cabo y cómo se ha desarrollado el proyecto.
+
+La tarea de documentación comenzó con la documentación del código fuente. Se decidió comenzar
+con dicha tarea cuando una gran parte del sistema ya estaba implementado, de forma que no fuese
+necesario reescribirla demasiado.
+
+Esta tarea concluyó con la redacción de este documento, el cual pone de manifiesto todo el trabajo
+que ha sido desarrollado desde el comienzo del proyecto hasta el final del mismo.
