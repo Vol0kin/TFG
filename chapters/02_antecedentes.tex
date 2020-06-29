@@ -249,4 +249,104 @@ basada en planificación en el entorno sea imposible, pero sí que requiere algo
 \subsection{\texttt{VGDL}}
 
 \texttt{VGDL} (Video Game Description Language) \cite{Schaul2013AVG} es un lenguaje que se
-utiliza para la descripción de juegos.
+utiliza para la descripción de juegos 2D.
+
+La descripción de un juego consiste de dos componentes:
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Descripción del nivel}: Se describe la disposición
+    de un nivel y la posición de los objetos que están en dicho nivel. Se trata
+    de un archivo de texto que compuesto por líneas de la misma longitud, donde
+    cada carácter se corresponde con un objeto en una posición que viene dada por la fila
+    y la columna en la que se encuentra el carácter.
+    \item \textbf{Descripción del juego}: Aquí se describe la dinámica del juego y las
+    interacciones entre los distintos objetos que se puedan encontrar en él. Un fichero
+    de este tipo contiene los siguientes elementos:
+    \begin{itemize}[label=$\blacksquare$]
+        \item \texttt{LevelMapping}: Especifica una correspondencia entre los caracteres del archivo
+        de descripción del nivel y uno o más objetos que se hayan especificado para cada uno de ellos.
+        \item \texttt{SpriteSet}: Especifica los objetos del juego y sus propiedades. Los objetos
+        se pueden definir de forma jerárquica mediante la indentación. Los objetos hijo heredan las propiedades
+        de su padre y solo pueden tener un único padre.
+        \item \texttt{InteractionSet}: Describe las interacciones que tienen lugar cuando dos objetos
+        colisionan. El primer objeto causa la interacción y el segundo la recibe.
+        \item \texttt{TerminationSet}: Describe las formas en las que puede terminar el juego. Cada
+        línea representa un criterio de terminación.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{.22\textwidth}
+    \centering
+    \begin{lstlisting}[basicstyle=\small]
+wwwwwwwwwwwww
+wA.......w..w
+w..w........w
+w...w...w.+ww
+www.w2..wwwww
+w.......w.g.w
+w.2.........w
+w.....2.....w
+wwwwwwwwwwwww
+    \end{lstlisting}
+    \caption{Fichero descripción del nivel.}
+    \end{subfigure}%
+    \begin{subfigure}[b]{.78\textwidth}
+    \centering
+    \begin{lstlisting}[basicstyle=\tiny]
+BasicGame
+  SpriteSet
+    floor > Immovable randomtiling=0.9 img=oryx/floor3 hidden=True
+    goal  > Door color=GREEN img=oryx/doorclosed1
+    key   > Immovable color=ORANGE img=oryx/key2
+    sword > OrientedFlicker limit=5 singleton=True img=oryx/slash1
+    movable >
+      avatar  > ShootAvatar   stype=sword frameRate=8
+        nokey   > img=oryx/swordman1
+        withkey > color=ORANGE img=oryx/swordmankey1
+      enemy >  
+        monsterQuick > RandomNPC cooldown=2 cons=6 img=oryx/bat1
+        monsterNormal > RandomNPC cooldown=4 cons=8 img=oryx/spider2
+        monsterSlow > RandomNPC cooldown=8 cons=12 img=oryx/scorpion1
+      wall > Immovable autotiling=true img=oryx/wall3
+      	
+
+  LevelMapping
+    g > floor goal
+    + > floor key        
+    A > floor nokey
+    1 > floor monsterQuick
+    2 > floor monsterNormal
+    3 > floor monsterSlow
+    w > wall
+    . > floor
+    
+
+  InteractionSet
+    movable wall  > stepBack
+    nokey goal    > stepBack
+    goal withkey  > killSprite scoreChange=1
+    enemy sword > killSprite scoreChange=2
+    enemy enemy > stepBack
+    avatar enemy > killSprite scoreChange=-1
+    nokey key     > transformTo stype=withkey scoreChange=1 killSecond=True
+
+  TerminationSet
+    SpriteCounter stype=goal   win=True
+    SpriteCounter stype=avatar win=False
+    \end{lstlisting}
+    \caption{Fichero descripción del juego.}
+    \end{subfigure}
+
+    \caption{Descripción en \texttt{VGDL} del juego \textit{Zelda}.}
+    \label{fig:vgdl_zelda}
+\end{figure}
+
+En la figura \ref{fig:vgdl_zelda} se muestra un ejemplo de un fichero de descripción del nivel
+y de descripción del juego para el juego \textit{Zelda}, el cual puede verse en la figura \ref{fig:zelda}.
+
+Los ficheros \texttt{VGDL} de un juego son bastante útiles a la hora de construir un dominio \texttt{PDDL}
+para dicho juego, ya que permiten conocer qué objetos hay en ese juego y algunas de las posibles interacciones
+entre ellos. Además, estos ficheros son utilizados para generar ficheros de configuración para el sistema, aunque
+eso se verá más adelante.
