@@ -223,7 +223,41 @@ el avatar posee uno u otro tipo de botas.
 \subsection{\texttt{Planning.Domains}}
 
 \texttt{Planning.Domains} \cite{muise-icaps16demo-pd} es una página \textit{web} que contiene
-una colección de herramientas que permiten trabajar con planificación. \url{http://planning.domains/}. 
+una colección de recursos y herramientas que permiten trabajar con dominios y problemas de planificación
+de manera sencilla y cómoda. Se puede acceder a dicha página mediante la siguiente URL:
+\url{http://planning.domains/}.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.28]{img/CH02/planning-domains.png}
+    \caption{Página principal de \texttt{Planning.Domains}.}
+    \label{fig:planning-domains-web}
+\end{figure}
+
+Las herramientas que ofrece dicha página son las siguientes:
+
+\begin{itemize}[label=\textbullet]
+    \item \texttt{api.planning.domains}: Permite acceder a una gran cantidad
+    de problemas y dominios de planificación \texttt{PDDL} mediante una \texttt{API}.
+    Se puede acceder mediante la siguiente URL: \url{http://api.planning.domains/}.
+    \item \texttt{solver.planning.domains}: Ofrece un planificador en la nube que
+    permite obtener planes y validarlos. Se puede acceder a dicho recurso mediante esta URL:
+    \url{http://solver.planning.domains/}.
+    \item \texttt{editor.planning.domains}: Editor en línea que permite definir
+    y resolver dominios y problemas de planificación \texttt{PDDL} y resolverlos. Se puede
+    acceder a este recurso mediante la siguiente URL: \url{http://editor.planning.domains/}.
+    \item \texttt{education.planning.domains}: Contiene una serie de recursos para
+    aprender y enseñar sobre la planificación automática. Se puede acceder mediante
+    la siguiente URL: \url{http://education.planning.domains/}.
+\end{itemize}
+
+De entre todos estos recursos queremos destacar \texttt{solver.planning.domains} porque es el
+planificador que se ha utilizado en el sistema que hemos construido. Se ha escogido éste sobre
+otros planificadores debido a lo simple que resulta su uso y a que el post-procesamiento que realiza
+de los planes obtenidos permite obtener mucha más información de la que pueden llegar a ofrecer
+otros planificadores. Por ejemplo, en la misma respuesta que ofrece se pueden
+obtener las precondiciones y los efectos instanciados de una acción, lo cual es muy útil para
+operaciones posteriores que se vayan a hacer con dicha información.
 
 \section{\texttt{GVGAI}}
 
