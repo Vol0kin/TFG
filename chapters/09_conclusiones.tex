@@ -4,5 +4,59 @@
 
 \chapter{Conclusiones}
 
+En este trabajo hemos propuesto una arquitectura semiautomática que combina un componente
+deliberativo guiado por la planificación y un componente reactivo que permite la ejecución y
+monitorización de los planes obtenidos, detectando en el proceso cualquier tipo de situación
+imprevista que pueda surgir.
+
+Tal y como se ha podido ver, esta nueva arquitectura, a diferencia de otras propuestas,
+permite resolver distintos juegos mediante el uso de planificación, siempre y cuando dichos juegos
+puedan ser resueltos mediante este tipo de técnicas. Esto se ha conseguido gracias a la definición
+de archivos de configuración, los cuales permiten al usuario establecer tanto los parámetros que va
+a utilizar el sistema para traducir estados de observación del juego a predicados \texttt{PDDL}
+como los objetivos que se desea alcanzar en la ejecución del sistema.
+
+Un punto fuerte de esta arquitectura es que simplifica mucho la creación de problemas
+de planificación \texttt{PDDL}, ya que permite obtenerlos de automáticamente a partir
+de los estados de observación del juego y en muy poco tiempo, como se ha podido comprobar, incluso
+para problemas grandes. Si se intentase hacer reste proceso a mano, se podrían tardar días, e incluso semanas,
+en producir un único problema \texttt{PDDL} correcto.
+
+Por último, cabe destacar que esta propuesta puede ser utilizada tanto para experimentar
+con arquitecturas deliberativas dirigidas por un planificador en el entorno \texttt{GVGAI}
+como con fines educativos, permitiendo a los estudiantes entender la generación de problemas
+a partir de dominios de planificación \texttt{PDDL} y comprender mejor cómo funciona la
+planificación.
 
 \section{Trabajos futuros}
+
+A pesar de los éxitos logrados en este trabajo, se considera que todavía hay cierto margen
+de mejora. En este punto se proponen una serie de ideas que permitirían mejorar el sistema y
+que pueden servir como trabajos futuros. Es importante destacar que estas propuestas tienen
+que permitir la resolución de múltiples juegos, de forma que integrar estos cambios en el
+sistema puede suponer un auténtico reto. Las propuestas de mejora que se hacen son las siguientes:
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Mejora del comportamiento reactivo}. El comportamiento reactivo que se
+    presenta en este trabajo es simple. Cuando el agente va a ejecutar la siguiente acción,
+    comprueba que sus precondiciones se cumplen, y en caso de que no, cambia de objetivo.
+    Este comportamiento, a pesar de que funciona en la mayoría de los casos, tiene el problema
+    de que no tiene en mayor consideración el entorno del agente. Muchas veces, el agente
+    puede llegar a morir aun sin haberse producido una discrepancia, debido a que por ejemplo
+    ha aparecido un enemigo que no ha podido detectar al comprobar las precondiciones de la acción.
+    Para solventar esto, se puede modificar el comportamiento reactivo del agente, incluyendo alguno
+    de los controladores reactivos que se proporcionan en \texttt{GVGAI} o creando uno propio. De esta
+    forma, el comportamiento reactivo podría permitir sortear peligros que se detecten en el entorno
+    del agente, y después aplicar algún método para reparar el plan obtenido por el planificador.
+    \item \textbf{Integración de un módulo de \textit{goal reasoning}}. Muchas nuevas propuestas de
+    arquitecturas deliberativas basadas en planificación incluyen un módulo de \textit{goal reasoning},
+    como por ejemplo la que se puede ver en \cite{Aha_2018}. Este módulo permite generar objetivos
+    de forma automática a partir del estado del juego. Dichos objetivos son comunicados al planificador,
+    el cual se encarga de encontrar un plan hasta ellos. Puede resultar de interés integrar un módulo
+    de este tipo en el sistema ya que, si la arquitectura es capaz de proponerse ella misma los objetivos
+    de forma automática, el usuario solo tendría que especificar qué predicados del dominio de planificación
+    \texttt{PDDL} que ha definido se pueden considerar como objetivo y el módulo, a partir de esta
+    información y de la información de traducción proporcionada, podría plantear objetivos de forma automática.
+    En esta descripción, sin embargo, se omite todo el trabajo que supone entrenar un módulo de este
+    tipo, además de hacerlo lo más general posible para que pueda resolver múltiples juegos.
+\end{itemize}
