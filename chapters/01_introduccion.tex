@@ -4,14 +4,63 @@
 
 \chapter{Introducción}
 
+La planificación automática es una rama de la Inteligencia Artificial cuyo objetivo
+último es proporcionar planes que permitan resolver problemas \cite{10.5555/3073924}.
+Para ello se hace uso de un \textbf{\textit{planificador}}, que es un programa que recibe
+como entradas un \textbf{\textit{dominio de planificación}}, es decir, una representación
+del mundo, y un \textbf{\textit{problema de planificación}}, que es un estado concreto de
+ese mundo que debe ser resuelto. El resultado obtenido es una secuencia ordenada de acciones
+que permiten alcanzar el objetivo descrito en el problema desde el estado
+inicial que se describe en él.
+
+A pesar de que la planificación automática ha sido integrada con éxito en muchas aplicaciones
+reales como por ejemplo la robótica o los vehículos no tripulados, el campo de los videojuegos
+sigue suponiéndole un gran reto. Esto se debe a que los videojuegos presentan, en líneas generales,
+entornos dinámicos y complejos, los cuales requieren una respuesta rápida ante los cambios que se producen
+y presentan espacios de búsqueda muy grandes debido al elevado número de acciones que existen.
+El proceso de planificación es costoso y lento, por lo que los planificadores no se ven
+capaces de ofrecer una respuesta rápida a los cambios que se producen en su entorno.
+
+El reto que supone integrar una arquitectura deliberativa basada en planificación en un videojuego ha
+abierto muchas líneas de investigación. La mayoría de ellas se centran en torno al juego
+StarCraft \cite{10.1007/978-3-540-74141-1_12, Churchill2011BuildOO, Weber2011BuildingHA, Aha_2018}
+debido a la enorme dinamicidad y complejidad que se puede encontrar en dicho juego.
+Existen, no obstante, otros juegos que se podrían utilizar para dichas pruebas.
+\texttt{GVGAI} (\textit{General Video Game AI})\cite{7038214} es un entorno que
+dispone de más de cien juegos diferentes. Entre ellos existen juegos que pueden ser resueltos
+muy fácilmente mediante técnicas de planificación, y también hay otros juegos con entornos
+dinámicos que pueden llegar a suponer un auténtico reto para los planificadores.
+
+Si bien es cierto que \texttt{GVGAI} tiene una gran cantidad de juegos que pueden resultar
+interesantes desde el punto de vista de la planificación, hay que tener en cuenta que el entorno
+no fue concebido para la creación de arquitecturas deliberativas basadas en planificación.
+Este entorno surgió para la creación y competición de arquitecturas reactivas basadas en técnicas como el
+Aprendizaje por Refuerzo o MCTS (\textit{Monte Carlo Tree Search}). Por tanto, crear agentes basados en
+planificación para los distintos juegos de \texttt{GVGAI} puede llegar a ser un proceso costoso y
+no tan directo como crear un agente reactivo. Es en este contexto que surge el presente trabajo.
+
+El objetivo principal de este trabajo es proporcionar una arquitectura reactiva y deliberativa basada
+en planificación en el entorno de juegos \texttt{GVGAI}. Además, a diferencia de las anteriores arquitecturas,
+las cuales estaban creadas específicamente para un único juego, la propuesta que se hace en este trabajo
+tiene también como objetivo ser lo suficientemente general como para permitir resolver cualquier juego
+del entorno que se desee mediante planificación, siempre y cuando éste pueda ser resuelto utilizando este tipo
+de técnicas.
+
+Esta propuesta puede llegar a ser bastante útil por dos motivos principales. Por un
+lado abre nuevas vías para experimentar con técnicas de planificación en \texttt{GVGAI}, lo cual es de
+sumo interés para el desarrollo de arquitecturas \textit{online} que integran un planificador que
+dirige el comportamiento deliberativo de un agente. Por otro lado, puede utilizarse como herramienta
+docente para enseñar cómo se representan los problemas de planificación y para aprender más sobre la propia
+planificación.
+
 El trabajo se ha estructurado de la siguiente manera. En el capítulo 2 se hará
 una introducción, comentando los trabajos relacionados e introduciendo conceptos
 fundamentales como la planificación y \texttt{GVGAI}. Después, en el capítulo 3 se
 detallará el plan de trabajo seguido, esto es, la metodología de trabajo y la
 temporización. Una vez hecho esto, en el capítulo 4 se presentará la arquitectura
 general del sistema, y seguidamente, en el capítulo 5 se comentará la arquitectura
-en más detalle. En el capítulo 6 se hablará del archivo de configuración, de cómo
-crearlo y qué formato tiene. Una vez hecha la explicación pasaremos al capítulo 7,
+en más detalle. En el capítulo 6 se hablará de la creación y del formato del archivo
+de configuración. Una vez hecha la explicación pasaremos al capítulo 7,
 donde se hará una descripción general de la implementación \textit{software} que se
 ha llevado a cabo. En el capítulo 8 se presentarán una serie de experimentos que
 se han realizado con el sistema. Por último, en el capítulo 9 se presentarán las
