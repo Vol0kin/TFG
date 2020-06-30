@@ -7,40 +7,71 @@
 \cleardoublepage
 \thispagestyle{empty}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Resumen en español
+
 \begin{center}
-{\large\bfseries Título del Proyecto: Subtítulo del proyecto}\\
+%{\large\bfseries Título del Proyecto: Subtítulo del proyecto}\\
+{\large\bfseries \titulo}\\
 \end{center}
 \begin{center}
 \autor\\
 \end{center}
 
 %\vspace{0.7cm}
-\noindent{\textbf{Palabras clave}: palabra\_clave1, palabra\_clave2, palabra\_clave3, ......}\\
+\noindent{\textbf{Palabras clave}: Inteligencia Artificial, Planificación automática, Videojuegos}\\
 
 \vspace{0.7cm}
 \noindent{\textbf{Resumen}}\\
 
-Poner aquí el resumen.
+A pesar de que la planificación automática ha sido integrada con éxito en muchas aplicaciones
+reales, los videojuegos siguen suponiéndole un gran reto debido a lo dinámicos y complejos que son.
+Esto ha llevado a que muchos autores hayan intentado integrar arquitecturas deliberativas basadas en
+planificación en videojuegos. Sin embargo, las arquitecturas propuestas se centran solamente en un único juego.
+Por tanto, en este trabajo presentamos una novedosa arquitectura semiautomática que combina una componente
+reactiva con una componente deliberativa basada en planificación en el entorno de juegos GVGAI.
+Esta arquitectura está diseñada de manera que permita resolver múltiples juegos del entorno.
+Se reciben como entrada un dominio de planificación PDDL y un archivo de configuración YAML que contiene la
+correspondencia entre elementos del juego y los predicados PDDL definidos en el dominio y un conjunto de objetivos a
+alcanzar. A partir del fichero de configuración, el sistema genera automáticamente problemas PDDL. Utilizando
+un planificador en la nube que recibe el dominio PDDL y el problema generado, se obtienen planes para alcanzar
+los objetivos propuestos. La ejecución del plan es monitorizada por la componente reactiva, comprobando la existencia
+de discrepancias en dicho plan.
+
 \cleardoublepage
 
 
 \thispagestyle{empty}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract en ingles 
 
 \begin{center}
-{\large\bfseries Project Title: Project Subtitle}\\
+%{\large\bfseries Project Title: Project Subtitle}\\
+{\large\bfseries \tituloingles}\\
 \end{center}
 \begin{center}
 \autor\\
 \end{center}
 
 %\vspace{0.7cm}
-\noindent{\textbf{Keywords}: Keyword1, Keyword2, Keyword3, ....}\\
+\noindent{\textbf{Keywords}: Artificial Intelligence, Automated Planning, Video Games}\\
 
 \vspace{0.7cm}
 \noindent{\textbf{Abstract}}\\
 
-Write here the abstract in English.
+Despite the fact that automated planning has been successfully integrated into many real-world
+applications, video games are still considered to be very challenging due to their dynamism
+and complexity. This has led many authors to try to integrate planning-based deliberative architectures
+into video games. However, the proposed architectures focus only on a single game. Therefore, in this
+work we present a novel semi-automatic architecture that combines a reactive component with a
+planning-based deliberative component in the GVGAI game environment. This architecture has been designed
+so that many of the environment's games can be solved. It receives a PDDL planning domain and a YAML
+configuration file that contains both the correspondence between the game's elements and PDDL predicates defined
+in the domain and a set of goals to be reached. The system automatically generates PDDL problem files thanks
+to the configuration file. By using a planner in the cloud that receives the PDDL domain and the
+generated problem, the system obtains plans that allow it to reach the proposed goals. The plan's execution
+is monitored by the reactive component, checking the existence of discrepancies in that plan.
 
 \cleardoublepage
 \thispagestyle{empty}
@@ -59,7 +90,7 @@ consultada por las personas que lo deseen.
 \vspace{2cm}
 
 \begin{flushright}
-Granada a X de mes de 201 .
+Granada a 7 de julio de 2020.
 \end{flushright}
 
 
@@ -78,13 +109,13 @@ de la Universidad de Granada.
 
 \vspace{0.5cm}
 
-Que el presente trabajo, titulado \textit{\textbf{Título del proyecto, Subtítulo del proyecto}},
+Que el presente trabajo, titulado \textit{\textbf{\titulo}},
 ha sido realizado bajo su supervisión por \textbf{\autor}, y autorizo la defensa de dicho trabajo ante el tribunal
 que corresponda.
 
 \vspace{0.5cm}
 
-Y para que conste, expide y firma el presente informe en Granada a X de mes de 201 .
+Y para que conste, expide y firma el presente informe en Granada a 7 de julio de 2020.
 
 \vspace{1cm}
 
@@ -100,5 +131,9 @@ Y para que conste, expide y firma el presente informe en Granada a X de mes de 2
        \vspace{1cm}
 
 
-Poner aquí agradecimientos...
-
+Quiero empezar dándole las gracias a Ignacio Vellido Expósito por la creación del dominio
+simplificado del juego \textit{Boulderdash}. También quiero darle las gracias a mi tutor,
+el Dr. Juan Fernández Olivares por darme la oportunidad de trabajar en un proyecto de este tipo.
+Y por último, pero no por ello menos importante, quiero darles las gracias a mis padres y a todos
+mis amigos, los cuales me han dado todo el apoyo necesario para continuar adelante, incluso
+en los momentos más duros.
