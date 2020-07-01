@@ -40,8 +40,8 @@ Visto este esquema, pasemos a estudiar las componentes funcionales que forman el
 
 \subsection{Creación del dominio}
 
-De la creación del dominio se ha hablado mucho hasta ahora. Este proceso es llevado a cabo completamente
-por el usuario. Implica definir una representación del juego que incluya los elementos que se pueden
+La creación del dominio de planificación es llevada a cabo completamente por el usuario.
+Implica definir una representación del juego que incluya los elementos que se pueden
 encontrar en éste, las acciones del agente (con sus precondiciones y efectos) y una serie de predicados
 que definen el funcionamiento del juego. Dicho dominio, en la medida de lo posible, debería ser
 lo más parecido posible al juego original, de manera que casi todo lo que se haga en el juego
@@ -132,13 +132,14 @@ fichero de problema de salida y el nombre del dominio del archivo de configuraci
 
 \subsection{Planificador}
 
-El planificador tiene la tarea de obtener un plan hasta el objetivo actual. Podría decirse que este
-componente es el corazón tanto del módulo lógico como de todo el sistema. Toda la arquitectura se ha
-montado alrededor de éste, con lo cual eliminarlo haría que esta fuese inútil.
+El planificador tiene la tarea de obtener un plan desde el estado actual, representado en el problema
+\texttt{PDDL}, hasta el objetivo actual. Podría decirse que este componente es el corazón tanto del módulo
+lógico como de todo el sistema. Toda la arquitectura se ha montado alrededor de éste, con lo cual
+eliminarlo haría que ésta fuese inútil.
 
 Recibe como entradas el archivo con el dominio \texttt{PDDL} y el archivo de problema obtenido
 por el generador de problemas. La salida que genera es un plan compuesto por acciones
-\texttt{PDDL} hasta el objetivo, el cual se pasa al traducotr de planes.
+\texttt{PDDL} hasta el objetivo, el cual se pasa al traductor de planes.
 
 \subsection{Traductor de planes}
 

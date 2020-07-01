@@ -5,7 +5,13 @@
 \chapter{Arquitectura general del sistema}
 \label{chap:arch}
 
-El sistema está estructurado en una serie de módulos lógicos que representan una
+El objetivo del sistema es, dados un archivo que contiene un dominio de planificación \texttt{PDDL}
+que describe un determinado juego y un archivo de configuración que especifica una serie de parámetros
+del sistema, resolver un nivel de dicho juego generando los problemas de planificación
+\texttt{PDDL} hasta los objetivos especificados de forma automática a partir de los estados de observación
+del juego.
+
+Este sistema está estructurado en una serie de módulos lógicos que representan una
 tarea de alto nivel. Un módulo lógico se compone a su vez de diversos módulos
 funcionales o procesos, los cuales llevan a cabo una tarea concreta y se comunican con
 otros módulos funcionales del mismo módulo lógico para llevar a cabo dicha tarea de alto
@@ -50,7 +56,7 @@ Es aquí donde se encuentran dos de los procesos más importantes: la creación 
 (\textit{Domain writing}) y la creación del archivo de configuración
 (\textit{Configuration generation}) que utilizará el sistema.
 
-Por una parte, el usuario tiene que definir el dominio de planificación. Este dominio está
+Por una parte, el usuario tiene que definir el dominio de planificación \texttt{PDDL}. Este dominio está
 compuesto por una serie de predicados y tipos de objetos que intentan modelar el
 juego (por ejemplo conexiones entre casillas, objetos del juego, información sobre la
 posición de los elementos, etc.). También forman parte del dominio una serie de acciones
@@ -61,13 +67,14 @@ el estado del juego para adaptarse a la representación en formato \texttt{PDDL}
 creado el usuario.
 
 Por otra parte, el usuario debe especificar una serie de parámetros en el archivo de
-configuración los cuales se utilizarán en el sistema para realizar una serie de tareas.
+configuración que se utilizarán en el sistema para realizar una serie de tareas.
 Entre dichas tareas se incluyen:
 
 \begin{itemize}[label=\textbullet]
-    \item La traducción de estados de observación a estados de \texttt{PDDL}
+    \item La traducción de estados de observación del juego a estados \texttt{PDDL}
     (\textit{State Observation Translation}) mediante una serie de correspondencias entre
-    estados de observación y predicados (\textit{State Observation to \texttt{PDDL} correspondence}).
+    los elementos de los estados de observación (obtenidos automáticamente del \textit{GVGAI Engine})
+    y predicados \texttt{PDDL} (\textit{State Observation to \texttt{PDDL} correspondence}).
     \item La traducción de acciones \texttt{PDDL} a acciones de \texttt{GVGAI}
     (\textit{Plan Translator}) mediante una serie de correspondencias entre las acciones de
     \texttt{PDDL} y las de \texttt{GVGAI} (\textit{Action correspondence}).
@@ -91,7 +98,7 @@ Por último tenemos el \textbf{módulo de ejecución del plan y de monitorizaci�
 (\textit{Plan Execution \& Monitoring}). Como su propio nombre indica, este módulo
 se encarga de ejecutar el plan obtenido por el módulo de planificación (\textit{Plan Executor})
 y de monitorizar dicha ejecución (\textit{Monitoring}), determinando en el proceso si se ha
-producido alguna discrepancia, y si por tanto hace falta replanificar. Una discrepancia implica
+producido alguna discrepancia, y si por tanto hace falta replanificar. Una \textbf{\textit{discrepancia}} implica
 que se ha producido un cambio en el estado del juego que no se esperaba a la hora de obtener
 el plan original, y por tanto éste ha dejado de ser válido y hace falta encontrar uno nuevo.
 En el proceso de comprobar si se ha producido una discrepancia se tiene que realizar la traducción del
