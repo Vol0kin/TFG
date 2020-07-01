@@ -62,11 +62,19 @@ donde se comentará el proceso y cómo es un archivo de configuración.
 El funcionamiento del módulo de planificación se explicó en el capítulo anterior. En resumen, el
 módulo se encarga de gestionar los objetivos proporcionados por el usuario en el archivo de
 configuración, de elegir un objetivo y de obtener un plan válido hasta dicho objetivo, asegurándose
-además que el plan pueda ser interpretado por el entorno de juego. El funcionamiento general
-del módulo está totalmente automatizado, si bien es cierto que requiere que el usuario haya
-definido el dominio \texttt{PDDL} y el archivo de configuración. Se comunica con el módulo de
-ejecución del plan y monitorización, recibiendo de él una discrepancia en caso de que se haya
-producido y proporcionándole un plan válido hasta el objetivo actual.
+además que el plan pueda ser interpretado por el entorno de juego. La figura \ref{fig:flux-planning}
+ilustra el funcionamiento del módulo de forma resumida. En líneas generales, el funcionamiento del módulo está
+totalmente automatizado, si bien es cierto que requiere que el usuario haya definido el dominio \texttt{PDDL}
+y el archivo de configuración. Se comunica con el módulo de ejecución del plan y monitorización,
+recibiendo de él una discrepancia en caso de que se haya producido y proporcionándole un plan válido
+hasta el objetivo actual.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{img/CH05/flux_planning.png}
+    \caption{Diagrama de flujo del módulo de planificación.}
+    \label{fig:flux-planning}
+\end{figure}
 
 \subsection{Gestor de objetivos}
 
@@ -201,7 +209,15 @@ una discrepancia, de forma que se tendría que seleccionar un nuevo objetivo y b
 antes de tiempo (también de forma accidental). Esto también generaría una discrepancia, ya que no se
 esperaba que se alcanzase un objetivo antes de tiempo. Sin embargo, esta discrepancia no obligaría
 a detener la ejecución del plan actual. Lo único que haría sería indicarle al gestor de objetivos
-que marque como alcanzado el objetivo alcanzado antes de tiempo.
+que marque como alcanzado el objetivo alcanzado antes de tiempo. Todo el procedimiento que acaba de describirse
+puede verse en la figura \ref{fig:flux-monitor}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{img/CH05/flux_monitor.png}
+    \caption{Diagrama de flujo del funcionamiento del monitor.}
+    \label{fig:flux-monitor}
+\end{figure}
 
 \subsection{Ejecutor del plan}
 
