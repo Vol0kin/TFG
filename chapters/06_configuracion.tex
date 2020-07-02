@@ -35,9 +35,18 @@ booleanos. También tiene tipos más avanzados, como listas y relaciones clave-v
 \section{Estructura del archivo de configuración}
 
 Para explicar la estructura del archivo vamos a partir de un archivo de configuración plantilla
-generado para el juego \textit{Boulderdash}. El juego como tal se explicará en capítulos posteriores.
-A partir de este archivo plantilla se explicarán los campos que lo forman y cómo se rellenarían dichos
-campos.
+generado para el juego \textit{Boulderdash}. A partir de este archivo plantilla se explicarán los campos
+que lo forman y cómo se rellenarían. El juego como tal se explicará más detalladamente en capítulos
+posteriores, pero la idea general es coger 9 de las gemas que hay en el mapa y salir del
+nivel, esquivando a los enemigos (cangrejos y mariposas) y picando las rocas para despejar el camino.
+El nivel de ejemplo que se va a utilizar se puede ver en la figura \ref{fig:boulderdash-example}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.38]{img/CH06/boulderdash.png}
+    \caption{Nivel de ejemplo del juego \textit{Boulderdash}.}
+    \label{fig:boulderdash-example}
+\end{figure}
 
 A continuación se ofrece el contenido de la plantilla que se ha obtenido a la hora de ejecutar
 el \textit{script}:
@@ -119,19 +128,23 @@ Los campos que aparecen en el fichero son los siguientes:
     \item \texttt{domainName}: Nombre del dominio. Se genera automáticamente y se obtiene a partir del
     archivo de dominio \texttt{PDDL}.
     
-    \item \texttt{cellVariable}: Variable que se utilizará para representar las celdas. Una variable
-    viene precedida por el símbolo ``\texttt{?}'' y se le da el nombre que quiera el usuario. El uso del símbolo
-    de interrogación es para que tenga cierta semejanza con la manera en la que se hacen las definiciones
-    de variables en \texttt{PDDL}. Por ejemplo, en este caso se ha especificado que la variable que representa
-    una celda sea la siguiente:
+    \item  \label{enum:cell} \texttt{cellVariable}: Variable que se utilizará para representar las celdas. Una
+    variable viene precedida por el símbolo ``\texttt{?}'' y se le da el nombre que quiera el usuario. El uso del
+    símbolo de interrogación es para que tenga cierta semejanza con la manera en la que se hacen las definiciones
+    de variables en \texttt{PDDL}. Por ejemplo, en este caso se ha decidido que dicha variable sea la
+    siguiente:
     
     \begin{lstlisting}[language=yaml]
 cellVariable: ?c
     \end{lstlisting}
     
-    Por tanto, cuando el traductor se encuentre que para un elemento del juego alguno de los predicados
-    asociados contiene la variable \texttt{?c} lo sustituirá por \texttt{c\_x\_y}, donde \texttt{x} es
-    la columna e \texttt{y} la fila donde se encuentra dicho elemento del juego.
+    Supongamos que en el dominio \texttt{PDDL} se ha definido el predicado \texttt{(at ?obj - Objeto ?cel - Celda)},
+    el cual representa que un determinado objeto \texttt{?obj} se encuentra en una celda \texttt{?cel} determinada.
+    En este caso, la variable \texttt{?cel} del predicado se correspondería con la variable que hemos
+    definido aquí, la cual es \texttt{?c}. Si este predicado está asociado a algún elemento del juego,
+    cuando el traductor se encuentre con dicho elemento sustituirá en este predicado la variable
+    \texttt{?c} por su instancia correspondiente, la cual será \texttt{c\_x\_y}, donde \texttt{x}
+    es la columna e \texttt{y} la fila donde se encuentra dicho elemento del juego.
     
     \item \texttt{avatarVariable}: Variable que se utilizará para representar al avatar/agente. Por
     ejemplo, en este caso se ha decidido que sea la siguiente:
@@ -148,7 +161,9 @@ avatarVariable: ?p
     
     \item \texttt{gameElementsCorrespondence}: Este campo sirve para asociar una lista de predicados
     a cada observación (elemento) del juego, de forma que cuando el traductor de estados de observación
-    se encuentre con dicha observación, generará los correspondientes predicados instanciando las variables.
+    se encuentre con dicha observación, generará los correspondientes predicados instanciando las variables
+    de la misma forma que se describió en el punto \ref{enum:cell}, a excepción como se comentó en el
+    punto anterior de las variables asociadas al jugador, las cuales se instancian de forma especial.
     Las observaciones se obtienen a partir del fichero que define el juego en formato \texttt{VGDL}, el
     cual recordemos que se pasa como parámetro a la hora de generar la plantilla del archivo de configuración.
     Una observación que aparece siempre es \texttt{background}, la cual representa una celda en la que no
