@@ -77,6 +77,7 @@ hasta el objetivo actual.
 \end{figure}
 
 \subsection{Gestor de objetivos}
+\label{sec:goal-manager}
 
 La principal tarea de este módulo funcional es gestionar los objetivos que le han sido proporcionados
 en el archivo de configuración y de establecer un objetivo actual. Para hacer dicha gestión, se almacenan
@@ -132,6 +133,7 @@ el planificador debe obtener un plan. Esta salida se envía al generador de prob
 de generar un problema para ese objetivo.
 
 \subsection{Generador de problemas}
+\label{sec:problem-generator}
 
 Este módulo funcional se encarga de generar los archivos de problema \texttt{PDDL} que necesita
 el planificador. Recibe como entrada el objetivo actual que ha seleccionado el gestor de objetivos,
@@ -150,6 +152,7 @@ por el generador de problemas. La salida que genera es un plan compuesto por acc
 \texttt{PDDL} hasta el objetivo, el cual se pasa al traductor de planes.
 
 \subsection{Traductor de planes}
+\label{sec:translate-plan}
 
 Este componente funcional tiene la tarea de traducir los planes generados por el planificador,
 los cuáles están formados de acciones \texttt{PDDL} a planes que sean interpretables por el entorno
@@ -182,6 +185,7 @@ traductor del estado de observación. Además de eso, en cada turno recibe una a
 que es la que va a ejecutar el agente.
 
 \subsection{Traductor del estado de observación}
+\label{sec:translate-state}
 
 La finalidad de este módulo funcional es generar, a partir de un estado de observación obtenido del
 motor del juego, una representación en formato \texttt{PDDL} del estado de juego actual. Para poder

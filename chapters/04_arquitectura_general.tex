@@ -12,18 +12,7 @@ del sistema, resolver un nivel de dicho juego generando los problemas de planifi
 del juego.
 
 Este sistema está estructurado en una serie de módulos lógicos que representan una
-tarea de alto nivel. Un módulo lógico se compone a su vez de diversos módulos
-funcionales o procesos, los cuales llevan a cabo una tarea concreta y se comunican con
-otros módulos funcionales del mismo módulo lógico para llevar a cabo dicha tarea de alto
-nivel.
-
-La tarea que un módulo funcional lleva a cabo puede realizarse de forma automática o
-puede llegar a requerir de la interacción con el usuario para poder ser completada.
-Cabe destacar además que, en determinados casos, los módulos funcionales de un módulo
-lógico pueden comunicarse con los módulos funcionales de otros módulos lógicos, lo cual se
-describirá más detenidamente más adelante.
-
-Por lo pronto, los módulos lógicos principales que se han considerado a la hora de definir
+tarea de alto nivel. Por lo pronto, los módulos lógicos principales que se han considerado a la hora de definir
 la arquitectura son los siguientes:
 
 \begin{itemize}[label=\textbullet]
@@ -31,6 +20,16 @@ la arquitectura son los siguientes:
     \item Un módulo de planificación (\textit{Planning}).
     \item Un módulo de monitorización y ejecución del plan (\textit{Plan Execution \& Monitoring}).
 \end{itemize}
+
+Un módulo lógico se compone a su vez de diversos módulos funcionales o procesos, los cuales llevan a cabo
+una tarea concreta y se comunican con otros módulos funcionales del mismo módulo lógico para llevar a cabo
+dicha tarea de alto nivel.
+
+La tarea que un módulo funcional lleva a cabo puede realizarse de forma automática o
+puede llegar a requerir de la interacción con el usuario para poder ser completada.
+Cabe destacar además que, en determinados casos, los módulos funcionales de un módulo
+lógico pueden comunicarse con los módulos funcionales de otros módulos lógicos, lo cual se
+describirá más detenidamente más adelante.
 
 En la figura \ref{fig:system_arch} pueden verse los distintos módulos lógicos y funcionales que
 componen el sistema, además de cómo están organizados, cómo se comunican y qué información se
@@ -62,7 +61,7 @@ juego (por ejemplo conexiones entre casillas, objetos del juego, información so
 posición de los elementos, etc.). También forman parte del dominio una serie de acciones
 que, con sus precondiciones y efectos, pretenden reflejar las acciones del juego. No obstante,
 también se pueden tener otras acciones que no tengan ningún tipo de correspondencia, las cuales
-podrían considerarse accione auxiliares. Como se puede suponer, el sistema tendrá que traducir
+podrían considerarse acciones auxiliares. Como se puede suponer, el sistema tendrá que traducir
 el estado del juego para adaptarse a la representación en formato \texttt{PDDL} que ha
 creado el usuario.
 
@@ -75,14 +74,18 @@ Entre dichas tareas se incluyen:
     (\textit{State Observation Translation}) mediante una serie de correspondencias entre
     los elementos de los estados de observación (obtenidos automáticamente del \textit{GVGAI Engine})
     y predicados \texttt{PDDL} (\textit{State Observation to \texttt{PDDL} correspondence}).
+    Esta funcionalidad se describe en la sección \ref{sec:translate-state}.
     \item La traducción de acciones \texttt{PDDL} a acciones de \texttt{GVGAI}
     (\textit{Plan Translator}) mediante una serie de correspondencias entre las acciones de
     \texttt{PDDL} y las de \texttt{GVGAI} (\textit{Action correspondence}).
+    Esta funcionalidad se encuentra descrita en la sección \ref{sec:translate-plan}.
     \item La gestión de los objetivos (\textit{Goal Manager}) teniendo en cuenta los
-    objetivos proporcionados por el usuario (\textit{Goals}).
+    objetivos proporcionados por el usuario (\textit{Goals}). Esta funcionalidad se
+    encuentra descrita en la sección \ref{sec:goal-manager}.
     \item La generación de los problemas \texttt{PDDL} (\textit{Problem Generator})
     especificando el nombre del fichero de problema de salida (\textit{Output problem file name})
-    y el nombre del dominio (\textit{Domain name}).
+    y el nombre del dominio (\textit{Domain name}). Esta funcionalidad se ha descrito
+    en la sección \ref{sec:problem-generator}.
 \end{itemize}
 
 
