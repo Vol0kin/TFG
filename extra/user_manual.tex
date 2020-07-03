@@ -1,0 +1,304 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}	% Utilizar español
+\usepackage[utf8]{inputenc}					% Caracteres UTF-8
+\usepackage{graphicx}						% Imagenes
+\usepackage[hidelinks]{hyperref}			% Poner enlaces sin marcarlos en rojo
+\usepackage{fancyhdr}						% Modificar encabezados y pies de pagina
+\usepackage{float}							% Insertar figuras
+\usepackage[textwidth=390pt]{geometry}		% Anchura de la pagina
+\usepackage[nottoc]{tocbibind}				% Referencias (no incluir num pagina indice en Indice)
+\usepackage{enumitem}						% Permitir enumerate con distintos simbolos
+\usepackage[T1]{fontenc}					% Usar textsc en sections
+\usepackage{amsmath}						% Símbolos matemáticos
+\usepackage{forest}
+
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+
+\def\Size{4pt}
+\tikzset{
+      folder/.pic={
+        \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+          (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+        \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+          (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+      }
+    }
+
+% Comando para poner el nombre de la asignatura
+\newcommand{\asignatura}{Trabajo Fin de Grado}
+\newcommand{\autor}{Vladislav Nikolov Vasilev}
+\newcommand{\titulo}{Desarrollo de una arquitectura reactiva y deliberativa
+usando planificación en el entorno de juegos GVGAI}
+\newcommand{\subtitulo}{Anexo - Manual de usuario}
+\newcommand{\director}{Juan Fernández Olivares}
+
+% Configuracion de encabezados y pies de pagina
+\pagestyle{fancy}
+\lhead{\autor{}}
+\rhead{\asignatura{}}
+\lfoot{Grado en Ingeniería Informática}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}		% Linea cabeza de pagina
+\renewcommand{\footrulewidth}{0.4pt}		% Linea pie de pagina
+
+\begin{document}
+\pagenumbering{gobble}
+
+% Pagina de titulo
+\begin{titlepage}
+
+\begin{minipage}{\textwidth}
+
+\centering
+
+%\includegraphics[scale=0.5]{img/ugr.png}\\
+\includegraphics[scale=0.3]{../img/logo_ugr.jpg}\\[1cm]
+
+\textsc{\Large \asignatura{}\\[0.2cm]}
+\textsc{GRADO EN INGENIERÍA INFORMÁTICA}\\[1cm]
+
+\noindent\rule[-1ex]{\textwidth}{1pt}\\[1.5ex]
+\textbf{{\Large \titulo\\[0.5ex]}}
+\noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
+%\textsc{{\Large \subtitulo\\}}
+\textsc{{\Large \subtitulo\\[0.5ex]}}
+
+\end{minipage}
+
+%\vspace{0.5cm}
+\vspace{0.7cm}
+
+\begin{minipage}{\textwidth}
+
+\centering
+
+\textbf{Autor}\\ {\autor{}}\\[2.5ex]
+\textbf{Director}\\ {\director}\\[2.5ex]
+\vspace{0.3cm}
+
+\includegraphics[scale=0.3]{../img/etsiit.jpeg}
+
+\vspace{0.7cm}
+\textsc{Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación}\\
+\vspace{1cm}
+\textsc{Curso 2019-2020}
+\end{minipage}
+\end{titlepage}
+
+\pagenumbering{arabic}
+\tableofcontents
+\thispagestyle{empty}				% No usar estilo en la pagina de indice
+
+\newpage
+
+\setlength{\parskip}{1em}
+
+\section{Instalación}
+
+El proyecto se encuentra alojado en un repositorio público de \texttt{GitHub}. Este repositorio
+encontrarse en el siguiente enlace: \url{https://github.com/Vol0kin/gvgai-pddl}.
+
+Las dependencias del sistema y el proceso de instalación se encuentran descritos en la página principal.
+En esta página también puede encontrarse otra información, como por ejemplo cómo generar plantillas
+de archivos de configuración, cómo ejecutar el sistema y cómo se puede ejecutar el planificador de
+\texttt{Planning.Domains} en local.
+
+\section{Estructura del proyecto}
+
+La estructura del proyecto puede verse en la figura \ref{fig:project-structure}. Ahí pueden verse los elementos
+más destacados, tanto directorios como archivos:
+
+\begin{itemize}[label=\textbullet]
+    \item El directorio \texttt{config} contiene algunos ejemplos de  archivos de configuración en formato
+    \texttt{YAML}. No es obligatorio que los archivos de configuración se generen en este directorio, pero
+    sí que sería una buena idea tener un directorio específico donde agruparlos.
+    \item El directorio \texttt{docs} contiene los \texttt{JavaDoc} que se han generado para el código
+    fuente del sistema.
+    \item El directorio \texttt{domains} contiene algunos ejemplos de dominios \texttt{PDDL} que se han
+    creado para algunos de los juegos.
+    \item El directorio \texttt{examples} es uno de los directorios originales de \texttt{GVGAI}. Aquí
+    se incluyen los archivos en formato \texttt{VGDL} que describen los juegos y los niveles. Dentro de
+    este directorio se encuentra el directorio \texttt{gridphysics}, el cual contiene todos los juegos
+    que puede ejecutar el sistema.
+    \item El directorio \texttt{sprites} es otro de los directorios originales de \texttt{GVGAI}. Aquí se
+    encuentran los \textit{sprites} de los elementos de los juegos.
+    \item El directorio \texttt{src} contiene el código fuente del sistema y el código de los tests. La
+    estructura de este directorio sigue la estructura típica de un proyecto de Maven. El directorio
+    \texttt{src/main/java} contiene el código fuente del sistema. Dentro de dicho directorio se encuentra
+    el directorio \texttt{controller}, el cual contiene el código fuente implementado.
+    
+    \begin{figure}[H]
+
+    \begin{forest}
+      for tree={
+        font=\ttfamily,
+        grow'=0,
+        child anchor=west,
+        parent anchor=south,
+        anchor=west,
+        calign=first,
+        inner xsep=7pt,
+        edge path={
+          \noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+        },
+        % style for your file node 
+        file/.style={edge path={\noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) \forestoption{edge label};},
+          inner xsep=2pt,font=\small\ttfamily
+                     },
+        before typesetting nodes={
+          if n=1
+            {insert before={[,phantom]}}
+            {}
+        },
+        fit=band,
+        before computing xy={l=15pt},
+      }
+    [gvgai-pddl
+      [config
+      ]
+      [docs
+      ]
+      [domains
+      ]
+      [examples
+      ]
+      [sprites
+      ]
+      [src
+        [main
+          [java
+            [controller]
+            [core]
+            [ontology]
+            [testing]
+            [tools]
+            [tracks]
+          ]
+        ]
+        [test
+          [java
+            [controller
+            ]
+          ]
+        ]
+      ]
+      [test\_files]
+      [pom.xml,file]
+      [requirements.txt,file]
+      [gen\_config\_file.py,file]
+    ]
+    \end{forest}
+    \caption{Estructura del proyecto.}
+    \label{fig:project-structure}
+\end{figure}
+    
+    \item El archivo \texttt{pom.xml} contiene información sobre el proyecto de Maven, como por ejemplo
+    las dependencias. También contiene la configuración del proyecto, como por ejemplo las tareas que
+    se tienen realizar en algunos de los pasos de la construcción del proyecto. Se recomienda no
+    modificar este archivo a menos que se sepa muy bien qué es lo que se está modificando.
+    \item El archivo \texttt{requirements.txt} contiene las dependencias del \textit{script} de \texttt{Python}
+    para la generación de plantillas de archivos de configuración.
+    \item Por último, el \textit{script} \texttt{gen\_config\_file.py} es el que permite generar plantillas de
+    archivos de configuración.
+\end{itemize}
+
+\begin{forest}
+      for tree={
+        font=\ttfamily,
+        grow'=0,
+        child anchor=west,
+        parent anchor=south,
+        anchor=west,
+        calign=first,
+        inner xsep=7pt,
+        edge path={
+          \noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+        },
+        % style for your file node 
+        file/.style={edge path={\noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) \forestoption{edge label};},
+          inner xsep=2pt,font=\small\ttfamily
+                     },
+        before typesetting nodes={
+          if n=1
+            {insert before={[,phantom]}}
+            {}
+        },
+        fit=band,
+        before computing xy={l=15pt},
+      }
+    [src
+        [main
+          [java
+            [controller
+              [Agenda.java,file]
+              [GameInformation.java,file]
+              [PDDLAction.java,file]
+              [PDDLPlan.java,file]
+              [PDDLSingleGoal.java,file]
+              [PlannerException.java,file]
+              [PlanningAgent.java,file]
+              [Position.java,file]
+            ]
+           ]
+         ]
+    ]
+\end{forest}
+
+\begin{forest}
+      for tree={
+        font=\ttfamily,
+        grow'=0,
+        child anchor=west,
+        parent anchor=south,
+        anchor=west,
+        calign=first,
+        inner xsep=7pt,
+        edge path={
+          \noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+        },
+        % style for your file node 
+        file/.style={edge path={\noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) +(7.5pt,0) |- (.child anchor) \forestoption{edge label};},
+          inner xsep=2pt,font=\small\ttfamily
+                     },
+        before typesetting nodes={
+          if n=1
+            {insert before={[,phantom]}}
+            {}
+        },
+        fit=band,
+        before computing xy={l=15pt},
+      }
+    [src
+        [test
+          [java
+            [controller
+              [TestAgenda.java,file]
+              [TestPDDLAction.java,file]
+              [TestPDDLPlan.java,file]
+              [TestPDDLSingleGoal.java,file]
+              [TestPlanningAgent.java,file]
+            ]
+           ]
+         ]
+    ]
+\end{forest}
+
+\newpage
+
+\begin{thebibliography}{5}
+
+\bibitem{nombre-referencia}
+Texto referencia
+\\\url{https://url.referencia.com}
+
+\end{thebibliography}
+
+\end{document}
