@@ -207,10 +207,11 @@ ocupada por un enemigo, algo que no se esperaba. Es entonces cuando se le indica
 de objetivos que se ha producido una discrepancia y que se debe seleccionar un nuevo objetivo,
 que resulta ser la gema que se encontraba a la izquierda de la posición inicial del agente.
 
-Se obtiene un plan hasta dicha gema y, tal y como se puede ver en la figura \ref{fig:discrepancy_3},
-el agente alcanza el nuevo objetivo propuesto. Vemos por tanto que el agente ha conseguido
-responder a la aparición de un enemigo en su camino, algo que no estaba previsto cuando obtuvo
-el plan, deteniendo por tanto la ejecución del plan actual y cambiando a un nuevo objetivo.
+La detección de la discrepancia dispara un proceso de replanificación con este nuevo objetivo. Esto genera
+un nuevo plan hasta dicha gema y, tal y como puede observarse en la figura \ref{fig:discrepancy_3},
+el agente alcanza el nuevo objetivo que se había propuesto. Vemos por tanto que el agente ha conseguido
+responder no solo mediante técnicas reactivas, si no autoproponiéndose un nuevo objetivo, a la aparición
+de un enemigo en su camino, deteniendo la ejecución del plan actual y cambiando de objetivo en el proceso.
 
 \begin{figure}[H]
     \centering
