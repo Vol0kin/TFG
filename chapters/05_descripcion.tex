@@ -196,6 +196,48 @@ la cual proviene del archivo de configuración que ha definido el usuario. La sa
 el estado de juego en formato \texttt{PDDL}, es enviada al monitor y, en caso de que éste detecte
 una discrepancia, al generador de problemas.
 
+En el algoritmo \ref{alg:translator} se puede ver el funcionamiento del traductor de estados de
+observación. Recibe como entrada el estado de observación del juego, el cual es proporcionado
+por el motor del juego. Se genera una lista vacía que representa el estado del juego en forma de predicados
+\texttt{PDDL} y un conjunto vacío que contendrá los predicados asociados a las conexiones de las celdas
+(líneas 2 y 3). Para cada celda del estado de observación se generan los predicados que representan las relaciones
+de conectividad y se añaden al conjunto (líneas 5-6). A continuación, para cada observación que exista
+en la celda se obtienen los predicados asociados a dicho elemento del juego (línea 8). Cada uno de estos
+predicados es instanciado y añadido a la lista de predicados del estado de observación (líneas 10 y 11). Adicionalmente, si la observación que se está procesando es la del avatar y en el juego se utilizan orientaciones,
+se genera el predicado correspondiente a la orientación del avatar y se añade a la lista (líneas 13-15).
+Una vez que se ha terminado esto se añaden a la lista de predicados las relaciones de conectividad entre celdas en
+formato \texttt{PDDL} (línea 19) y, en caso de que sea necesario, los predicados asociados a los objetivos
+alcanzados que deben ser guardados (línea 20).
+
+\begin{algorithm}[H]
+\caption{Función que representa el funcionamiento del traductor del estado de observación.}
+\label{alg:translator}
+\begin{algorithmic}[1]
+\Function{TranslateStateObservation}{$stateObservation$}
+\State $pddlState \gets $ Array()
+\State $pddlCellConnections \gets $ Set()
+\ForEach{$cell \in stateObservation$}
+    \State $connectionsPredicates \gets $ GeneratePDLLConnections($cell$)
+    \State $pddlCellConnections$.insert($connectionsPredicates$)
+    \ForEach{$observation \in cell$.getObservations()}
+        \State $correspondenceList \gets correspondences[observation]$
+        \ForEach{$predicate \in correspondenceList$}
+            \State $predicate \gets $ InstantiatePredicate($predicate$)
+            \State $pddlState$.add($predicate$)
+        \EndFor
+        \If{$observation = avatar$ \textbf{and} $useOrientations$}
+            \State $orientationPredicate \gets $ GetPDDLOrientation()
+            \State $pddlState$.add($orientationPredicate$)
+        \EndIf
+    \EndFor
+\EndFor
+\State $pddlState$.add($pddlCellConnections$)
+\State $pddlState$.add($savedReachedGoalPredicates$)
+\State \Return{$pddlState$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
 \subsection{Monitor}
 
 El monitor se encarga de supervisar la ejecución del plan, detectando en el proceso si se ha producido

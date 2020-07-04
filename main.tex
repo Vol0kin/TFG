@@ -17,6 +17,13 @@
 \usepackage[Sonny]{fncychap}                % Capitulos con encabezado chulo :D
 \usepackage{subcaption}
 \usepackage{pgfgantt}
+\usepackage{algorithm}						% Entorno de algoritmos
+\usepackage{algpseudocode}			% Pseudocodigo
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+\algrenewcommand\algorithmicreturn{\textbf{return}}
 
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows, shapes, automata}
