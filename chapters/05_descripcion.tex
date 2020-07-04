@@ -12,8 +12,7 @@ componentes funcionales.
 
 \section{Módulo de interacción con el usuario}
 
-En este módulo, tal y como se comentó en el capítulo anterior, es donde se lleva a cabo
-la interacción con el usuario. Aquí es donde el usuario define el dominio y crea el archivo
+En este módulo es donde el usuario define el dominio y crea el archivo
 de configuración, que son los dos elementos que va a utilizar el sistema cuando entre en
 funcionamiento. Más que un componente software dentro del sistema, este módulo representa un
 proceso general que es llevado a cabo por el usuario, el cual le permite modificar directamente
@@ -21,7 +20,8 @@ el funcionamiento del sistema.
 
 En la figura \ref{fig:iterative_waterfall_model} se puede ver qué pasos se llevan dentro de este
 módulo lógico. Se comienza con la definición del dominio \texttt{PDDL} (\textit{Domain writing}), el cual
-representará el juego. Después de ese proceso vendría la definición del archivo de configuración
+representará las acciones que puede ejecutar el agente y la dinámica del juego en términos de precondiciones
+y efectos. Después de ese proceso vendría la definición del archivo de configuración
 (\textit{Configuration generation}). A la hora de crear dicho archivo, el usuario puede darse cuenta de que no ha
 considerado ciertos elementos en su dominio, lo cual implicará que se deberán hacer ciertas modificaciones
 sobre dicho dominio. Por último, con los dos ficheros ya creados, el usuario ejecutaría el sistema
@@ -41,20 +41,21 @@ Visto este esquema, pasemos a estudiar las componentes funcionales que forman el
 \subsection{Creación del dominio}
 
 La creación del dominio de planificación es llevada a cabo completamente por el usuario.
-Implica definir una representación del juego que incluya los elementos que se pueden
-encontrar en éste, las acciones del agente (con sus precondiciones y efectos) y una serie de predicados
-que definen el funcionamiento del juego. Dicho dominio, en la medida de lo posible, debería ser
-lo más parecido posible al juego original, de manera que casi todo lo que se haga en el juego
-se pueda hacer en el dominio.
+Implica definir una representación del juego en el lenguaje \texttt{PDDL} (descrito previamente en la
+sección \ref{chap:pddl}) que incluya los elementos que se pueden encontrar en éste, las acciones del agente
+(con sus precondiciones y efectos) y una serie de predicados que definen el funcionamiento del juego.
+Dicho dominio, en la medida de lo posible, debería ser lo más parecido posible al juego original,
+de manera que casi todo lo que se haga en el juego se pueda hacer en el dominio.
 
 \subsection{Creación de la configuración}
 
-La creación del archivo de configuración, a diferencia de la creación del dominio, tiene cierto grado
-de automatización. Se dispone de un \textit{script} que permite generar parte de ésta a partir del
+La creación del archivo de configuración, a diferencia de la creación del dominio, se ha diseñado para que
+tenga el máximo grado de automatización posible y facilitar así la tarea de integración al usuario.
+Se dispone de un \textit{script} que permite generar parte de ésta a partir del
 dominio creado en el paso anterior del proceso (ver figura \ref{fig:iterative_waterfall_model}) y
 de la definición en \texttt{VGDL} del juego. La otra parte la tendrá que generar el usuario.
 
-La creación de la configuración será descrita con mucho maś detalle en el próximo capítulo,
+La creación de la configuración será descrita con mucho más detalle en el próximo capítulo,
 donde se comentará el proceso y cómo es un archivo de configuración.
 
 \section{Módulo de planificación}
