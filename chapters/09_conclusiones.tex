@@ -9,24 +9,26 @@ deliberativo guiado por la planificación y un componente reactivo que permite l
 monitorización de los planes obtenidos, detectando en el proceso cualquier tipo de situación
 imprevista que pueda surgir.
 
-Tal y como se ha podido ver, esta nueva arquitectura, a diferencia de otras propuestas,
-permite resolver distintos juegos mediante el uso de planificación, siempre y cuando dichos juegos
-puedan ser resueltos mediante este tipo de técnicas. Esto se ha conseguido gracias a la definición
-de archivos de configuración, los cuales permiten al usuario establecer tanto los parámetros que va
-a utilizar el sistema para traducir estados de observación del juego a predicados \texttt{PDDL}
-como los objetivos que se desea alcanzar en la ejecución del sistema.
+Tal y como se ha podido ver, esta nueva arquitectura, a diferencia de otras propuestas diseñadas para
+manejar un único dominio de planificación para un único juego, permite resolver distintos juegos mediante
+el uso de planificación. Esto es posible siempre y cuando dichos juegos puedan ser resueltos mediante este
+tipo de técnicas. Esto se ha conseguido gracias a la definición de un proceso semiautomático para la
+integración del planificador, basado en archivos de configuración que permiten al usuario establecer tanto
+los parámetros que va a utilizar el sistema para traducir estados de observación del juego a predicados
+\texttt{PDDL} como los objetivos que se desea alcanzar en la ejecución del sistema.
 
 Un punto fuerte de esta arquitectura es que simplifica mucho la creación de problemas
-de planificación \texttt{PDDL}, ya que permite obtenerlos de automáticamente a partir
+de planificación \texttt{PDDL}, ya que permite obtenerlos automáticamente a partir
 de los estados de observación del juego y en muy poco tiempo, como se ha podido comprobar, incluso
-para problemas grandes. Si se intentase hacer reste proceso a mano, se podrían tardar días, e incluso semanas,
-en producir un único problema \texttt{PDDL} correcto.
+para problemas grandes. Si se intentase hacer el proceso de integración de un planificador en un juego,
+el cual requiere de la definición de un dominio y de la generación de problemas específicos para el juego,
+se podrían tardar días, e incluso semanas.
 
-Por último, cabe destacar que esta propuesta puede ser utilizada tanto para experimentar
-con arquitecturas deliberativas dirigidas por un planificador en el entorno \texttt{GVGAI}
-como con fines educativos, permitiendo a los estudiantes entender la generación de problemas
-a partir de dominios de planificación \texttt{PDDL} y comprender mejor cómo funciona la
-planificación.
+Por último, cabe destacar que esta propuesta puede ser utilizada en dos ámbitos. Por una parte, puede
+utilizarse para experimentar con arquitecturas deliberativas dirigidas por un planificador en el entorno
+\texttt{GVGAI}. Por otra, puede ser utilizada con fines educativos, permitiendo a los estudiantes entender la
+generación de problemas a partir de dominios de planificación \texttt{PDDL} y comprender mejor cómo funciona
+la planificación.
 
 \section{Trabajos futuros}
 
