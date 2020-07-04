@@ -124,7 +124,8 @@ más destacados, tanto directorios como archivos:
     que puede ejecutar el sistema.
     \item El directorio \texttt{sprites} es otro de los directorios originales de \texttt{GVGAI}. Aquí se
     encuentran los \textit{sprites} de los elementos de los juegos.
-    \item El directorio \texttt{src} contiene el código fuente del sistema y el código de los tests. La
+    \item El directorio \texttt{src} contiene el código fuente del sistema, el código de los tests y los
+    recuros que utilizan los tests (dominios, problemas y archivos de configuración). La
     estructura de este directorio sigue la estructura típica de un proyecto de Maven. El directorio
     \texttt{src/main/java} contiene el código fuente del sistema. Dentro de dicho directorio se encuentra
     el directorio \texttt{controller}, el cual contiene el código fuente implementado.
@@ -184,6 +185,7 @@ más destacados, tanto directorios como archivos:
             [controller
             ]
           ]
+          [resources]
         ]
       ]
       [test\_files]
@@ -195,7 +197,7 @@ más destacados, tanto directorios como archivos:
     \caption{Estructura del proyecto.}
     \label{fig:project-structure}
 \end{figure}
-    
+
     \item El archivo \texttt{pom.xml} contiene información sobre el proyecto de Maven, como por ejemplo
     las dependencias. También contiene la configuración del proyecto, como por ejemplo las tareas que
     se tienen realizar en algunos de los pasos de la construcción del proyecto. Se recomienda no
@@ -206,6 +208,18 @@ más destacados, tanto directorios como archivos:
     archivos de configuración.
 \end{itemize}
 
+Los archivos que se encuentran en el directorio \texttt{controller} se pueden ver en la figura \ref{fig:controller}.
+En estos archivos se implementan las siguientes funcionalidades:
+
+\begin{itemize}[label=\textbullet]
+    \item En el archivo \texttt{Agenda.java} se implementa la clase \texttt{Agenda}, la cual permite la gestión
+    de los objetivos de forma sencilla.
+    \item El fichero \texttt{GameInformation.java} contiene la clase \texttt{GameInformation}, la cual es la
+    responsable de guardar la información que se carga de los archivos de configuración.
+    \item En el archivo \texttt{PDDLAction.java} se encuentra implementada la clase \texttt{PDDLAction},
+    la cual representa una acción \texttt{PDDL}. También se encuentra implementada la clase \texttt{PDDLEffect}
+    como clase anidada a la anterior. Esta clase representa un efecto de una acción \texttt{PDDL}.
+    \begin{figure}[H]
 \begin{forest}
       for tree={
         font=\ttfamily,
@@ -249,7 +263,29 @@ más destacados, tanto directorios como archivos:
          ]
     ]
 \end{forest}
+\caption{Contenido del directorio \texttt{controller}.}
+\label{fig:controller}
+\end{figure}
 
+    \item En el archivo \texttt{PDDLPlan.java} se implementa la clase \texttt{PDDLPlan}, la cual representa un
+    plan de \texttt{PDDL}.
+    \item El archivo \texttt{PDDLSingleGoal.java} contiene la implementación de la clase \texttt{PDDLSingleGoal},
+    la cual representa un objetivo \texttt{PDDL}.
+    \item En \texttt{PlannerException.java} se tiene la excepción que se lanza cuando se produce algún error al
+    llamar al planificador en la nube.
+    \item En el archivo \texttt{PlanningAgent.java} se encuentra la clase \texttt{PlanningAgent}, la cual
+    contiene el agente implementado.
+    \item El archivo \texttt{Position.java} contiene un enumerado que indica cuatro posibles posiciones:
+    \texttt{UP}, \texttt{DOWN}, \texttt{LEFT}, \texttt{RIGHT}. Estas posiciones se utilizan en algunas
+    de las clases anteriores.
+\end{itemize}
+
+Por último, en la figura \ref{fig:tests} se observa la estructura del directorio que contiene los tests
+que se han creado. Estos tests se hacen sobre la funcionalidad pública que exponen las correspondientes clases.
+Como se mencionó anteriormente, se utilizan los recursos localizados en \texttt{src/test/resources} para
+llevarlos a cabo.
+
+\begin{figure}[H]
 \begin{forest}
       for tree={
         font=\ttfamily,
@@ -290,15 +326,15 @@ más destacados, tanto directorios como archivos:
          ]
     ]
 \end{forest}
+\caption{Estructura del directorio que contiene los tests para los archivos del paquete \texttt{controller}.}
+\label{fig:tests}
+\end{figure}
+
+\section{Documentación detallada del sistema}
+
+En la página principal del proyecto de \texttt{GitHub} se puede encontrar un enlace a la documentación detallada
+de todo el código fuente, incluyendo la del sistema.
 
 \newpage
-
-\begin{thebibliography}{5}
-
-\bibitem{nombre-referencia}
-Texto referencia
-\\\url{https://url.referencia.com}
-
-\end{thebibliography}
 
 \end{document}
