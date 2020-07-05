@@ -8,8 +8,9 @@ Como se ha podido ver hasta ahora, el archivo de configuración definido por el 
 juega un papel clave en el sistema. Es gracias a él que la mayoría de operaciones dentro
 del sistema pueden ser automatizadas, como por ejemplo la generación de problemas, la
 traducción de estados de observación a estados \texttt{PDDL}, la gestión de objetivos
-y la traducción de planes. Por tanto, es importante saber cómo se crea dicho fichero
-y qué formato tiene.
+y la traducción de planes. Por tanto, es importante conocerlo más a fondo. En las secciones
+posteriores se describirá el proceso de creación del archivo de configuración, el formato
+que tiene y su estructura mediante un ejemplo concreto, el cual facilitará su comprensión.
 
 \section{Creación del archivo}
 
@@ -43,13 +44,143 @@ El nivel de ejemplo que se va a utilizar se puede ver en la figura \ref{fig:boul
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.38]{img/CH06/boulderdash.png}
+    \includegraphics[scale=0.4]{img/CH06/boulderdash.png}
     \caption{Nivel de ejemplo del juego \textit{Boulderdash}.}
     \label{fig:boulderdash-example}
 \end{figure}
 
-A continuación se ofrece el contenido de la plantilla que se ha obtenido a la hora de ejecutar
-el \textit{script}:
+\begin{lstlisting}[language=pddl,
+    caption={Dominio \texttt{PDDL} del juego \textit{Boulderdash}.},
+    label={lst:boulderdash},
+    captionpos=b]
+  (:types
+    Bat Scorpion - Enemy
+    Gem Player Boulder Enemy Exit - Locatable
+    Cell
+  )
+
+  (:predicates
+    (at ?l - Locatable ?c - Cell)
+    (oriented-up ?p - Player)
+    (oriented-down ?p - Player)
+    (oriented-left ?p - Player)
+    (oriented-right ?p - Player)
+    (connected-up ?c1 ?c2 - Cell)
+    (connected-down ?c1 ?c2 - Cell)
+    (connected-left ?c1 ?c2 - Cell)
+    (connected-right ?c1 ?c2 - Cell)
+    (terrain-ground ?c - Cell)
+    (terrain-wall ?c - Cell)
+    (terrain-empty ?c - Cell)
+    (got ?g - Gem)
+    (exited-level)
+    (occupied ?c - Cell)
+  )
+
+  (:action turn-up
+    ... )
+
+  (:action turn-down
+    ... )
+
+  (:action turn-left
+    ... )
+
+  (:action turn-right
+    ... )
+
+  (:action move-up
+    ... )
+
+  (:action move-down
+    ... )
+
+  (:action move-left
+    ... )
+
+  (:action move-right
+    ... )
+  
+  (:action move-up-get-gem
+    ... )
+
+  (:action move-down-get-gem
+    ... )
+
+  (:action move-left-get-gem
+    ... )
+
+  (:action move-right-get-gem
+    ... )
+
+  (:action dig-up
+    ... )
+
+  (:action dig-down
+    ... )
+
+  (:action dig-left
+    ... )
+
+  (:action dig-right
+    ... )
+
+  (:action exit-level
+    ... )
+\end{lstlisting}
+
+Es importante también conocer el dominio \texttt{PDDL} que se ha creado para el juego, el cual puede
+verse de forma resumida en el listado \ref{lst:boulderdash} y se utilizará en la explicación que se
+va a realizar. Se pueden ver los tipos que representan a los elementos del juego, los predicados y las acciones
+que puede realizar, aunque éstas se muestran de forma simplificada (solo el nombre). A continuación se ofrece más
+información sobre lo que representan los predicados:
+
+\begin{itemize}[label=\textbullet]
+    \item El predicado \texttt{(at ?l - Locatable ?c - Cell)}, que indica que un objeto determinado
+    se encuentra en una determinada celda.
+    \item Los predicados \texttt{(oriented-up ?p - Player)}, \texttt{(oriented-down ?p - Player)},
+    \texttt{(oriented-left ?p - Player)} y \texttt{(oriented-right ?p - Player)}, los cuales expresan
+    la orientación del jugador.
+    \item Los predicados \texttt{(connected-up ?c1 ?c2 - Cell)}, \texttt{(connected-down ?c1 ?c2 - Cell)},
+    \texttt{(connected-left ?c1 ?c2 - Cell)} y \texttt{(connected-right ?c1 ?c2 - Cell)}, los cuales sirven
+    para representar las relaciones de conectividad entre las casillas. Por ejemplo, el primero de ellos indica
+    que la celda \texttt{?c1} tiene por encima de ella a la casilla \texttt{?c2}. Algo similar sucede con el
+    siguiente predicado, donde se indica que \texttt{?c2} estaría debajo de \texttt{?c1}. Y así con el resto
+    de predicados, los cuales tienen una semántica igual a estos dos casos.
+    \item Los predicados \texttt{(terrain-ground ?c - Cell)}, \texttt{(terrain-wall ?c - Cell)} y
+    \texttt{(terrain-empty ?c - Cell)} indican el tipo de terreno de la celda (con tierra, muro o excavada,
+    respectivamente).
+    \item El predicado \texttt{(got ?g - Gem)} indica que se ha cogido la gema \texttt{?g}.
+    \item El predicado \texttt{(exited-level)} indica que se ha salido el nivel una vez que se han cogido
+    las gemas necesarias.
+    \item El predicado \texttt{(occupied ?c - Cell)} indica que la celda está ocupada por una roca o un enemigo.
+\end{itemize}
+
+Por último, es importante comentar brevemente qué representa cada acción:
+
+\begin{itemize}
+    \item Las acciones \texttt{turn-up}, \texttt{turn-down}, \texttt{turn-left} y \texttt{turn-right}
+    representan el giro que puede realizar el agente para cambiar su orientación a la que indique el nombre
+    de la acción.
+    \item Las acciones \texttt{move-up}, \texttt{move-down}, \texttt{move-left} y \texttt{move-right}
+    implican el movimiento del agente de una casilla a otra que esté conectada con la primera, siempre y
+    cuando el agente esté orientado de la forma correcta y exista una conexión entre las dos casillas.
+    Por ejemplo, si se quiere mover hacia arriba (\texttt{move-up}), tendrá que estar orientado hacia arriba y
+    tendrá que existir un predicado \texttt{(connected-up c1 c2)} que indique que existe la correspondiente
+    conexión entre ambas celdas.
+    \item Las acciones \texttt{move-up-get-gem}, \texttt{move-down-get-gem}, \texttt{move-left-get-gem}
+    y \texttt{move-right-get-gem} son parecidas a las cuatro anteriores, solo que si hay una gema en
+    la casilla destino, el agente la coge en el proceso.
+    \item Las acciones \texttt{dig-up}, \texttt{dig-down}, \texttt{dig-left} y \texttt{dig-right} implican
+    cavar en la dirección que indican. Para ello, el agente tiene que estar orientado previamente de forma
+    correcta.
+    \item La acción \texttt{exit-level} se lleva a cabo cuando el agente va a salir del nivel, una vez
+    que ha cogido todas las gemas necesarias.
+\end{itemize}
+
+Una vez descritos el juego y el dominio \texttt{PDDL} que se ha creado para el juego, pasemos a comentar
+la estructura del archivo de configuración. A continuación se ofrece el contenido de la plantilla que
+se ha obtenido a la hora de ejecutar el \textit{script}:
 
 \begin{lstlisting}[language=yaml]
 domainFile: domains/boulderdash-domain.pddl
@@ -138,13 +269,13 @@ Los campos que aparecen en el fichero son los siguientes:
 cellVariable: ?c
     \end{lstlisting}
     
-    Supongamos que en el dominio \texttt{PDDL} se ha definido el predicado \texttt{(at ?obj - Objeto ?cel - Celda)},
-    el cual representa que un determinado objeto \texttt{?obj} se encuentra en una celda \texttt{?cel} determinada.
-    En este caso, la variable \texttt{?cel} del predicado se correspondería con la variable que hemos
-    definido aquí, la cual es \texttt{?c}. Si este predicado está asociado a algún elemento del juego,
-    cuando el traductor se encuentre con dicho elemento sustituirá en este predicado la variable
-    \texttt{?c} por su instancia correspondiente, la cual será \texttt{c\_x\_y}, donde \texttt{x}
-    es la columna e \texttt{y} la fila donde se encuentra dicho elemento del juego.
+    Supongamos que hemos asociado el predicado \texttt{(at ?l - Locatable ?c - Cell)} del domino
+    \texttt{PDDL} a una serie de elementos del juego. En este caso, la variable \texttt{?c} que se ha
+    definido en el dominio se correspondería con la variable que hemos definido en el fichero de configuración,
+    la cual es \texttt{?c}. Es importante destacar que no tienen por qué tener el mismo nombre. Por ejemplo,
+    podríamos haberle puesto el nombre \texttt{?celda} en el archivo de configuración. Cuando el traductor se
+    encuentre con alguno de los elementos a los que está asociado el predicado, sustituirá en este predicado la variable \texttt{?c} por su instancia correspondiente, la cual será \texttt{c\_x\_y}, donde \texttt{x} es la
+    columna e \texttt{y} la fila donde se encuentra dicho elemento del juego.
     
     \item \texttt{avatarVariable}: Variable que se utilizará para representar al avatar/agente. Por
     ejemplo, en este caso se ha decidido que sea la siguiente:
@@ -302,16 +433,22 @@ connections:
     
     \begin{lstlisting}[language=yaml]
 goals:
-- goalPredicate: (got g_5_3)
+- goalPredicate: (got g_7_6)
   priority: 1
   saveGoal: no
-- goalPredicate: (got g_6_3)
+- goalPredicate: (got g_6_6)
   priority: 1
   saveGoal: no
-- goalPredicate: (got g_7_3)
+- goalPredicate: (got g_5_6)
   priority: 1
   saveGoal: no
-- goalPredicate: (got g_1_4)
+- goalPredicate: (got g_4_6)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_4_1)
+  priority: 1
+  saveGoal: no
+- goalPredicate: (got g_5_1)
   priority: 1
   saveGoal: no
 - goalPredicate: (got g_6_1)
@@ -320,16 +457,10 @@ goals:
 - goalPredicate: (got g_7_1)
   priority: 1
   saveGoal: no
-- goalPredicate: (got g_7_9)
-  priority: 1
-  saveGoal: no
-- goalPredicate: (got g_9_10)
-  priority: 1
-  saveGoal: no
 - goalPredicate: (exited-level)
   priority: 2
   saveGoal: no
-- goalPredicate: (got g_16_9)
+- goalPredicate: (got g_6_2)
   priority: 1
   saveGoal: no
     \end{lstlisting}
@@ -339,7 +470,7 @@ goals:
     guardado, y ninguno tiene una lista de objetivos a eliminar una vez que se haya alcanzado. Es importante destacar
     que, a la hora de indicar los objetivos, las variables de los predicados se sustituyen por objetos (instancias
     concretas de las variables). Por ejemplo, si nos fijamos en el primer objetivo, vemos que el predicado con la
-    variable instanciada es \texttt{(got g\_5\_3)} (hay una gema en la posición $x = 5, y= 7$ ), mientras que el
-    predicado como tal sería \texttt{(got ?g)}. Por tanto, es necesario conocer cómo se instancian las variables,
-    así como también la posición de los elementos en el mapa.
+    variable instanciada es \texttt{(got g\_7\_6)} (hay una gema en la posición $x = 7, y= 6$ ), mientras que el
+    predicado como tal sería \texttt{(got ?g - Gem)}. Por tanto, es necesario conocer cómo se instancian las
+    variables, así como también la posición de los elementos en el mapa.
 \end{enumerate}
