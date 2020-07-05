@@ -1,0 +1,3 @@
+[submodule "gvgai-pddl"]
+	path = gvgai-pddl
+	url = https://github.com/Vol0kin/gvgai-pddl.git
