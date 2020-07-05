@@ -38,5 +38,5 @@ $ make full-clean
 ## :computer: Código fuente
 
 Se puede acceder al código fuente del sistema a través del submódulo `gvgai-pddl`. Esto es un enlace
-que sirve para redirigir al código al repositorio donde está alojado el código fuente.
+que sirve para redirigir al repositorio donde está alojado el código fuente.
 
