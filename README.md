@@ -35,6 +35,14 @@ se puede especificar la siguiente opción:
 $ make full-clean
 ```
 
+## :open_file_folder: Acceso a la documentación *online*
+
+Si por el contrario no se quiere clonar el repositorio y generar la documentación manualmente, se
+puede acceder a ésta en los siguientes enlaces:
+
+- [Memoria del TFG](https://vol0kin.github.io/TFG/pdfs/memoriaTFG.pdf)
+- [Manual de usuario](https://vol0kin.github.io/TFG/pdfs/manual_usuario.pdf)
+
 ## :computer: Código fuente
 
 Se puede acceder al código fuente del sistema a través del submódulo `gvgai-pddl`. Esto es un enlace
