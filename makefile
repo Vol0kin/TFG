@@ -1,20 +1,29 @@
 .PHONY: clean full-clean
-IN = main
-FILES = $(IN).aux $(IN).log $(IN).out $(IN).synctex.gz $(IN).toc $(IN).bbl $(IN).blg $(IN).lof
+MAIN = main.tex
+MEMORIA = memoriaTFG
+DIR_MEMORIA = dirMemoria
 CXX = pdflatex
+BIB = biber
 
-all: $(IN).pdf
 
-$(IN).pdf: $(IN).tex
-	$(CXX) $<
-	biber $(IN).bcf
-	$(CXX) $<
-	$(CXX) $<
+all: $(MEMORIA)
+
+$(MEMORIA): $(MEMORIA).pdf
+
+$(MEMORIA).pdf: $(DIR_MEMORIA) $(MAIN)
+	$(CXX) -output-directory=$(DIR_MEMORIA) -jobname=$(MEMORIA) $(MAIN)
+	$(BIB) $(DIR_MEMORIA)/$(MEMORIA).bcf
+	$(CXX) -output-directory=$(DIR_MEMORIA) -jobname=$(MEMORIA) $(MAIN)
+	$(CXX) -output-directory=$(DIR_MEMORIA) -jobname=$(MEMORIA) $(MAIN)
+	cp $(DIR_MEMORIA)/$(MEMORIA).pdf .
+
+$(DIR_MEMORIA):
+	mkdir $@
 
 clean:
 	@echo Limpiando archivos extra generados por LaTex...
-	rm -f $(FILES)
+	rm -rf $(DIR_MEMORIA)
 
-full-clean:
-	@echo Limpiando todos los archivos generados por LaTex...
-	rm -f $(FILES) $(IN).pdf
+full-clean: clean
+	@echo Limpiando archivos PDF...
+	rm -f *.pdf
