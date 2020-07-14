@@ -203,13 +203,54 @@ planificación en el entorno de juegos GVGAI}
     \end{frame}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \section{Módulo de interacción con el usuario}
+
+    \begin{frame}{Descripción del módulo}
+
+        \begin{itemize}
+            \item Se llevan a cabo dos tareas fundamentales:
+                \begin{itemize}
+                    \item Creación del \alert{dominio PDDL}.
+                    \item Creación del \alert{archivo de configuarción}.
+                \end{itemize}
+            \item No es un componente \textit{software}. Es más bien un \alert{proceso}.
+            \item Bajo grado de automatización.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Funcionamiento general del módulo}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.5]{img/presentation/cascade_model}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Creación del dominio}
+        \begin{itemize}
+            \item Tarea manual llevada a cabo por el usuario.
+            \item Utiliza conocimiento:
+            \begin{itemize}
+                \item Jugar partidas al juego en cuestión.
+                \item Estudiar el archivo VGDL de definición del juego.
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Creación del archivo de configuración}
+        \begin{itemize}
+            \item Tarea semiautomatizada.
+            \item Se dispone de un \textit{script} que genera un archivo de configuración
+            plantilla.
+            \item Se necesitan el dominio PDDL y el archivo VGDL de definición del juego. 
+        \end{itemize}
+
+    \end{frame}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de planificación}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de ejecución y monitorización}
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \section{Módulo de interacción con el usuario}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Implementación}
