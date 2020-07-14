@@ -1,0 +1,61 @@
+\begin{ganttchart}[%Specs
+     y unit title=0.5cm,
+     y unit chart=0.7cm,
+     vgrid,hgrid,
+     title height=1,
+     title label font=\bfseries\footnotesize,
+     bar/.style={fill=blue},
+     bar height=0.4,
+     group right shift=0,
+     group top shift=0.7,
+     group height=.3,
+     group peaks width={0.2},
+     inline]{1}{36}
+    %labels
+    \gantttitle{Jul}{3}
+    \gantttitle{Ago}{3}
+    \gantttitle{Sep}{3}
+    \gantttitle{Oct}{3}
+    \gantttitle{Nov}{3}
+    \gantttitle{Dic}{3}
+    \gantttitle{Ene}{3}
+    \gantttitle{Feb}{3}
+    \gantttitle{Mar}{3}
+    \gantttitle{Abr}{3}
+    \gantttitle{May}{3}
+    \gantttitle{Jun}{3}\\
+    % Setting group if any
+    \ganttgroup[inline=false]{Estudio}{1}{35}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Planificación}{1}{4}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Arquitecturas de planificación}{15}{15}\\
+    \ganttbar[inline=false, bar/.style={fill=red}]{Bibliografía complementaria}{34}{35}\\
+    
+    \ganttgroup[inline=false]{Diseño}{2}{30}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Definición dominio PDDL inicial}{2}{3}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Almacenamiento y gestión de objetivos}{15}{17}
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{}{21}{21}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Arquitectura del agente}{21}{22}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Archivo de configuración del sistema}{24}{26}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Definición dominios PDDL nuevos juegos}{27}{28}\\
+    \ganttbar[inline=false, bar/.style={fill=yellow}]{Funcionalidad del modo depuración}{29}{30}\\
+    
+    \ganttgroup[inline=false]{Implementación}{1}{32}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Integración de planificador en GVGAI}{1}{3}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Traducción automática de estados del juego}{5}{12}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Gestión de objetivos}{16}{17}
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{}{21}{23}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Control de discrepancias}{21}{23}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Generación automática de archivos de configuración}{26}{27}\\
+    \ganttbar[inline=false, bar/.style={fill=cyan}]{Modo depuración}{30}{32}\\
+    
+    \ganttgroup[inline=false]{Validación}{33}{33}\\
+    \ganttbar[inline=false, bar/.style={fill=green}]{Creación de tests}{33}{33}\\
+    
+    \ganttgroup[inline=false]{Experimentación}{29}{35}\\
+    \ganttbar[inline=false, bar/.style={fill=pink}]{Estudio del control de discrepancias}{29}{30}\\
+    \ganttbar[inline=false, bar/.style={fill=pink}]{Estudio de la generación de problemas}{35}{35}\\
+    
+    \ganttgroup[inline=false]{Documentación}{22}{36} \\
+    \ganttbar[inline=false, bar/.style={fill=orange}]{Código fuente}{22}{33}\\
+    \ganttbar[inline=false, bar/.style={fill=orange}]{Memoria}{34}{36}
+\end{ganttchart}

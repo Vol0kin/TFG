@@ -1,24 +1,33 @@
 \documentclass[11pt]{beamer}    % Presentacion
-\usepackage{graphicx}
+\usepackage[spanish]{babel}     % Español
+\usepackage[utf8]{inputenc}     % Aceptar entrada UTF-8
+\usepackage{graphicx}           % Insertar imagenes
+\usepackage{float}              % Entornos flotantes
+\usepackage{pgfgantt}           % Diagrama de Gantt
+\usepackage{subcaption}
 
 
 \usetheme{metropolis}           % Usar el tema metropolis
-
-
+\setlength{\unitlength}{1cm}    % Configurar el entorno picture
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configurar footer
 %\setbeamertemplate{frame footer}{\insertshortauthor \quad \quad \insertshortsubtitle}
 %\setbeamercolor{footline}{fg=gray}
-
+\setbeamertemplate{section in toc}[sections numbered]
+\metroset{numbering=fraction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Portada
 \title{Desarrollo de una arquitectura reactiva y deliberativa usando
 planificación en el entorno de juegos GVGAI}
 \subtitle{Trabajo Fin de Grado}
+\author[Vladislav Nikolov]{\textbf{Autor:} Vladislav Nikolov Vasilev \and
+    \textbf{Director:} Juan Fernández Olivares
+}
 \date{\today}
-\author{Vladislav Nikolov Vasilev}
-\institute{Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación\\
-    Universidad de Granada}
+\institute{Departamento de Ciencias de la Computación e Inteligencia Artificial \\
+    Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación \\
+    Universidad de Granada
+}
 
 \begin{document}
     % Insertar pagina de titulo
@@ -26,27 +35,30 @@ planificación en el entorno de juegos GVGAI}
 
     % Insertar indice
     \begin{frame}{Índice}
-        \setbeamertemplate{section in toc}[sections numbered]
         \tableofcontents
     \end{frame}
 
     \section{Introducción}
     \begin{frame}{Motivación}
-        Planificación automática como rama de la IA para la obtención de planes que permiten
-        resolver problemas.
+        \begin{itemize}
+            \item Planificación automática como potente herramienta para la resolución de problemas.
 
-        Planificación integrada exitosamente en aplicaciones reales pero no en videojuegos.
+            \item Integrada exitosamente en aplicaciones reales pero no en videojuegos.
 
-        Desarrollo de agentes para un juego determinado cuya componente deliberativa se basa
-        en planificación. 
+            \item Videojuegos presentan entornos \alert{dinámicos} y \alert{complejos}.
+            No se puede dar una respuesta rápida.
+
+            \item Desarrollo de agentes para juegos concretos cuya componente deliberativa se basa
+            en planificación.
+        \end{itemize}
     \end{frame}
 
-    \begin{frame}{Objetivos}
-        Crear una arquitectura en el entorno de juegos GVGAI con las siguientes características:
+    \begin{frame}{Objetivo}
+        Creación de una arquitectura en el entorno de juegos GVGAI con las siguientes características:
 
         \begin{enumerate}
-            \item Combina componente reactiva con deliberativa basada en planificación.
-            \item Lo suficientemente general para resolver cualquier juego del entorno.
+            \item Combina componente \alert{reactiva} con \alert{deliberativa} basada en planificación.
+            \item Lo suficientemente \textbf{general} para resolver cualquier juego del entorno.
         \end{enumerate}
     \end{frame}
 
@@ -57,18 +69,185 @@ planificación en el entorno de juegos GVGAI}
         \end{itemize}
     \end{frame}
 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Antecedentes}
 
     \begin{frame}{Trabajos relacionados}
+        Propuesta \alert{novedosa}, aunque se han desarrollado arquitecturas para otros
+        juegos en específico.
 
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.25]{img/presentation/starcraft}
+        \end{figure}
     \end{frame}
 
+    \begin{frame}{Planificación}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.4]{img/presentation/planning}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{PDDL}
+        \begin{figure}
+            \centering
+            \begin{subfigure}[t]{.55\textwidth}
+                \centering
+                \includegraphics[scale=0.32]{img/presentation/pddl_domain}
+                \caption{Dominio de planificación PDDL.}
+            \end{subfigure}%
+            \begin{subfigure}[t]{.45\textwidth}
+                \centering
+                \includegraphics[scale=0.32]{img/presentation/pddl_problem}
+                \caption{Problema de planificación PDDL.}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Planning.Domains}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.23]{img/presentation/planning-domains}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{GVGAI}
+        \begin{figure}
+            \centering
+            \begin{subfigure}[t]{.5\textwidth}
+                \centering
+                \includegraphics[scale=0.2]{img/presentation/aliens}
+            \end{subfigure}%
+            \begin{subfigure}[t]{.5\textwidth}
+                \centering
+                \includegraphics[scale=0.2]{img/presentation/zelda}
+            \end{subfigure}
+            \par\bigskip
+            \begin{subfigure}[t]{.5\textwidth}
+                \centering
+                \includegraphics[scale=0.2]{img/presentation/brainman}
+            \end{subfigure}%
+            \begin{subfigure}[t]{.5\textwidth}
+                \centering
+                \includegraphics[scale=0.2]{img/presentation/boulderdash}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{VGDL}
+        \begin{figure}
+            \centering
+            \begin{subfigure}{0.5\textwidth}
+                \centering
+                \includegraphics[scale=0.5]{img/presentation/game_lvl}
+                \par\bigskip
+                {\LARGE$\downarrow{}$}
+                \par\bigskip
+                \includegraphics[scale=0.2]{img/presentation/zelda}
+            \end{subfigure}%
+            \begin{subfigure}{0.5\textwidth}
+                \centering
+                \includegraphics[scale=0.4]{img/presentation/game_def}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Plan de trabajo}
+
+    \begin{frame}{Metodología}
+        \begin{itemize}
+            \item Metodología de trabajo basada en \textbf{Scrum}.
+            \item Reuniones cada 1-2 semanas:
+                \begin{itemize}
+                    \item Revisión de objetivos alcanzados.
+                    \item Resolución de problemas surgidos.
+                    \item Propuesta de nuevos objetivos.
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Temporización}
+        \begin{figure}
+            \centering
+            \scalebox{0.36}{
+                \input{presentation/gantt_chart}
+            }
+        \end{figure}
+    \end{frame}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Arquitectura general del sistema}
+
+    \begin{frame}{Objetivo del sistema}
+        Dados:
+
+        \begin{enumerate}
+            \item Un juego de GVGAI.
+            \item Un nivel de ese juego.
+            \item Dominio de planificación PDDL que representa el juego.
+            \item Archivo de configuración del sistema.
+        \end{enumerate}
+
+        El sistema debe resolver el nivel dado, generando para ello los problemas PDDL
+        hasta los objetivos especificados \alert{de forma automática} a partir de los estados de
+        observación del juego.
+    \end{frame}
+
+    \begin{frame}{Arquitectura general}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.25]{img/presentation/system_arch}
+        \end{figure}
+    \end{frame}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de planificación}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de ejecución y monitorización}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de interacción con el usuario}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Implementación}
+
+    \begin{frame}{Tecnologías utilizadas}
+        \begin{figure}
+            \centering
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=1]{img/presentation/java}
+            \end{subfigure}%
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=0.05]{img/presentation/maven}
+            \end{subfigure}%
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=0.03]{img/presentation/python}
+            \end{subfigure}
+            \par\bigskip
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=0.3]{img/presentation/github}
+            \end{subfigure}%
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=1]{img/presentation/github-actions}
+            \end{subfigure}%
+            \begin{subfigure}[t]{0.33\textwidth}
+                \centering
+                \includegraphics[scale=0.15]{img/presentation/travisci}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Experimentación}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Conclusiones}
 \end{document}
