@@ -5,23 +5,35 @@
 \usepackage{float}              % Entornos flotantes
 \usepackage{pgfgantt}           % Diagrama de Gantt
 \usepackage{subcaption}
+\usepackage{tikz}
+
+% Ajustar tikz
+\usetikzlibrary{positioning, arrows, shapes, automata}
+\tikzset{Node style/.style={thick, draw=black, circle, align=center, minimum width=70pt}}
+\tikzset{
+	->, % Hace que los arcos sean dirigidos
+	>=stealth, % Hace que la punta de las flechas sean gruesas
+	node distance=7cm, % Distancia minima entre nodos
+}
 
 
 \usetheme{metropolis}           % Usar el tema metropolis
 \setlength{\unitlength}{1cm}    % Configurar el entorno picture
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configurar footer
 %\setbeamertemplate{frame footer}{\insertshortauthor \quad \quad \insertshortsubtitle}
 %\setbeamercolor{footline}{fg=gray}
 \setbeamertemplate{section in toc}[sections numbered]
 \metroset{numbering=fraction}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Portada
 \title{Desarrollo de una arquitectura reactiva y deliberativa usando
 planificación en el entorno de juegos GVGAI}
 \subtitle{Trabajo Fin de Grado}
-\author[Vladislav Nikolov]{\textbf{Autor:} Vladislav Nikolov Vasilev \and
-    \textbf{Director:} Juan Fernández Olivares
+\author[Vladislav Nikolov]{\textbf{Autor} Vladislav Nikolov Vasilev \and
+    \textbf{Director} Juan Fernández Olivares
 }
 \date{\today}
 \institute{Departamento de Ciencias de la Computación e Inteligencia Artificial \\
@@ -230,7 +242,7 @@ planificación en el entorno de juegos GVGAI}
             \item Tarea manual llevada a cabo por el usuario.
             \item Utiliza conocimiento:
             \begin{itemize}
-                \item Jugar partidas al juego en cuestión.
+                \item Jugar partidas al juego.
                 \item Estudiar el archivo VGDL de definición del juego.
             \end{itemize}
         \end{itemize}
@@ -248,9 +260,184 @@ planificación en el entorno de juegos GVGAI}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de planificación}
 
+    \begin{frame}{Descripción del módulo}
+        \begin{itemize}
+            \item Compuesto por los siguientes módulos funcionales:
+            \begin{itemize}
+                \item Gestor de objetivos
+                \item Generador de problemas PDDL
+                \item Planificador
+                \item Traductor de planes
+            \end{itemize}
+            \item Funcionamiento automatizado. Necesita dominio PDDL y archivo de configuración
+            definidos por el usuario.
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{Funcionamiento general del módulo}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.3]{img/presentation/planning_flux}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Gestor de objetivos}
+        \begin{itemize}
+            \item Gestionar objetivos y elegir objetivo actual.
+            \item Estados de los objetivos:
+            \begin{itemize}
+                \item \alert{No planificado}
+                \item \alert{Alcanzado}
+                \item \alert{Detenido}
+                \item \alert{Actual}
+            \end{itemize}
+            \item \alert{Discrepancia}: situación imprevista que se produce en el juego, la
+            cual puede \textbf{detener} la ejecución del plan actual o provocar que
+            \textbf{un objetivo se alcance prematuramente}.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Gestor de objetivos}
+        \begin{figure}
+            \centering
+            \scalebox{0.7}{
+                \input{presentation/goal_manager}
+            }
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Generador de problemas PDDL}
+        \begin{itemize}
+            \item Genera un problema PDDL hasta el objetivo actual.
+            \item \alert{Entradas}
+            \begin{itemize}
+                \item Objetivo actual
+                \item Estado actual del juego en formato PDDL
+                \item Nombre del fichero de salida
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Archivo de problema PDDL
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Planificador}
+        \begin{itemize}
+            \item Obtiene un plan hasta el objetivo actual.
+            \item \alert{Entradas}
+            \begin{itemize}
+                \item Archivo de dominio PDDL
+                \item Archivo de problema PDDL
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Plan hasta el objetivo actual
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Traductor de planes}
+        \begin{itemize}
+            \item Traduce los planes obtenidos por el planificador a acciones interpretables
+            por el entorno de juegos.
+            \item \alert{Entradas}
+            \begin{itemize}
+                \item Plan hasta el objetivo actual obtenido por el planificador
+                \item Correspondencia entre acciones PDDL y acciones GVGAI
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Lista de acciones GVGAI hasta el objetivo actual
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Módulo de ejecución y monitorización}
 
+    \begin{frame}{Descripción del módulo}
+        \begin{itemize}
+            \item Formado por los siguientes módulos funcionales:
+
+            \begin{itemize}
+                \item Motor del juego
+                \item Traductor del estado de observación
+                \item Monitor
+                \item Ejecutor del plan
+            \end{itemize}
+            \item Funcionamiento automatizado. Requiere archivo de configuración definido
+            por el usuario.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Motor del juego}
+        \begin{itemize}
+            \item Ejecuta y visualiza el juego.
+            \item \alert{Entrada}
+            \begin{itemize}
+                \item Acción a ejecutar
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Estado de observación actual del juego
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Traductor del estado de observación}
+        \begin{itemize}
+            \item Traduce el estado de observación del juego a predicados PDDL.
+            \item \alert{Entrada}
+            \begin{itemize}
+                \item Estado de observación del juego
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Estado actual del juego en formato PDDL
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Monitor}
+        \begin{itemize}
+            \item Supervisa la ejecución del plan actual.
+            \item Estudia la existencia de \alert{discrepancias} en el estado actual.
+            \item Se comunica con el \textbf{ejecutor del plan} y el \textbf{gestor de objetios},
+            indicándoles la existencia de discrepancias.
+            \item \alert{Entradas}
+            \begin{itemize}
+                \item Estado actual del juego en formato PDDL
+                \item Precondiciones de la acción a ejecutar
+                \item Efectos de la acción a ejecutar
+            \end{itemize}
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{Funcionamiento del monitor}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.4]{img/presentation/monitor}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}{Ejecutor del plan}
+        \begin{itemize}
+            \item Ejecuta el plan actual.
+            \item \alert{Entradas}
+            \begin{itemize}
+                \item Plan a ejecutar
+                \item Señal de control enviada por el monitor indicando si
+                el plan actual sigue siendo válido o no
+            \end{itemize}
+            \item \alert{Salida}
+            \begin{itemize}
+                \item Siguiente acción a ejecutar del plan actual
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Implementación}
@@ -288,7 +475,27 @@ planificación en el entorno de juegos GVGAI}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Experimentación}
+    \begin{frame}{}
+
+    \end{frame}
+    \begin{frame}{}
+
+    \end{frame}
+    \begin{frame}{}
+
+    \end{frame}
+    \begin{frame}{}
+
+    \end{frame}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Conclusiones}
+
+    \begin{frame}{Conclusiones}
+
+    \end{frame}
+
+    \begin{frame}{Trabajos futuros}
+
+    \end{frame}
 \end{document}

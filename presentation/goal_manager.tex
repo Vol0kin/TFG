@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+        \node[Node style, state] (not_planned) {Not planned};
+        \node[Node style, state, right of=not_planned] (current) {Current goal};
+        \node[Node style, state, below of=not_planned] (reached) {Reached};
+        \node[Node style, state,right of=reached] (preempted) {Preempted};
+        
+        \draw (not_planned) edge[above] node{Selected goal} (current)
+              (not_planned) edge[left] node{Discrepancy} (reached)
+              (current) edge[right, pos=0.2, bend left] node{Discrepancy} (preempted)
+              (preempted) edge[left, pos=0.2, bend left] node{Selected goal} (current)
+              (preempted) edge[above] node{Discrepancy} (reached)
+              (current) edge node[left] {Plan completed} (reached);
+\end{tikzpicture}
