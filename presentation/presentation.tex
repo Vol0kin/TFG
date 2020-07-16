@@ -174,9 +174,9 @@ planificación en el entorno de juegos GVGAI}
             \item Metodología de trabajo basada en \textbf{Scrum}.
             \item Reuniones cada 1-2 semanas:
                 \begin{itemize}
-                    \item Revisión de objetivos alcanzados.
-                    \item Resolución de problemas surgidos.
-                    \item Propuesta de nuevos objetivos.
+                    \item Revisión de objetivos alcanzados
+                    \item Resolución de problemas surgidos
+                    \item Propuesta de nuevos objetivos
                 \end{itemize}
         \end{itemize}
     \end{frame}
@@ -197,13 +197,11 @@ planificación en el entorno de juegos GVGAI}
         Dados:
 
         \begin{enumerate}
-            \item Un juego de GVGAI.
-            \item Un nivel de ese juego.
-            \item Dominio de planificación PDDL que representa el juego.
-            \item Archivo de configuración del sistema.
+            \item Dominio de planificación PDDL
+            \item Archivo de configuración
         \end{enumerate}
 
-        El sistema debe resolver el nivel dado, generando para ello los problemas PDDL
+        El sistema debe resolver un nivel de un juego dado, generando para ello los problemas PDDL
         hasta los objetivos especificados \alert{de forma automática} a partir de los estados de
         observación del juego.
     \end{frame}
@@ -219,12 +217,11 @@ planificación en el entorno de juegos GVGAI}
     \section{Módulo de interacción con el usuario}
 
     \begin{frame}{Descripción del módulo}
-
         \begin{itemize}
             \item Se llevan a cabo dos tareas fundamentales:
                 \begin{itemize}
                     \item Creación del \alert{dominio PDDL}.
-                    \item Creación del \alert{archivo de configuarción}.
+                    \item Creación del \alert{archivo de configuración}.
                 \end{itemize}
             \item No es un componente \textit{software}. Es más bien un \alert{proceso}.
             \item Bajo grado de automatización.
@@ -263,6 +260,8 @@ planificación en el entorno de juegos GVGAI}
 
     \begin{frame}{Descripción del módulo}
         \begin{itemize}
+            \item Encargado de llevar a cabo todo el proceso de \alert{planificación} y
+            \alert{gestión de objetivos}.
             \item Compuesto por los siguientes módulos funcionales:
             \begin{itemize}
                 \item Gestor de objetivos
@@ -360,6 +359,7 @@ planificación en el entorno de juegos GVGAI}
 
     \begin{frame}{Descripción del módulo}
         \begin{itemize}
+            \item Encargado de \alert{ejecutar} el plan actual y de \alert{supervisar} su ejecución.
             \item Formado por los siguientes módulos funcionales:
 
             \begin{itemize}
@@ -390,9 +390,10 @@ planificación en el entorno de juegos GVGAI}
     \begin{frame}{Traductor del estado de observación}
         \begin{itemize}
             \item Traduce el estado de observación del juego a predicados PDDL.
-            \item \alert{Entrada}
+            \item \alert{Entradas}
             \begin{itemize}
                 \item Estado de observación del juego
+                \item Correspondencia entre los elementos del juego y predicados PDDL
             \end{itemize}
             \item \alert{Salida}
             \begin{itemize}
@@ -404,8 +405,8 @@ planificación en el entorno de juegos GVGAI}
     \begin{frame}{Monitor}
         \begin{itemize}
             \item Supervisa la ejecución del plan actual.
-            \item Estudia la existencia de \alert{discrepancias} en el estado actual.
-            \item Se comunica con el \textbf{ejecutor del plan} y el \textbf{gestor de objetios},
+            \item Estudia la existencia de \alert{discrepancias} en el estado actual del juego.
+            \item Se comunica con el \textbf{ejecutor del plan} y el \textbf{gestor de objetivos},
             indicándoles la existencia de discrepancias.
             \item \alert{Entradas}
             \begin{itemize}
@@ -572,5 +573,11 @@ planificación en el entorno de juegos GVGAI}
             \item Mejora del comportamiento reactivo.
             \item Integración de un módulo de \textit{goal reasoning}.
         \end{itemize}
+    \end{frame}
+
+    \begin{frame}[standout]
+        \textbf{{\Huge FIN}}
+        \noindent\rule[-1ex]{\textwidth}{1.5pt}\\[3.5ex]
+        ¿Preguntas?
     \end{frame}
 \end{document}
