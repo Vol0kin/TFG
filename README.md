@@ -4,6 +4,9 @@ realizado durante el año académico 2019/20 en la Universidad de Granada.
 
 ## :gear: Generación de la documentación
 
+> **Nota**: Para generar la presentación se necesita el tema Metropolis, el cual se puede
+obtener del [siguiente repositorio de GitHub](https://github.com/matze/mtheme).
+
 Para generar la documentación en formato PDF se puede usar el fichero `makefile`. Para ello, basta
 con ejecutar lo siguiente:
 
@@ -11,8 +14,8 @@ con ejecutar lo siguiente:
 $ make
 ```
 
-Esto generará tanto la memoria como el manual de usuario en el directorio actual. También
-se pueden generar de manera individual:
+Esto generará la memoria del proyecto, el manual de usuario y la presentación en el directorio actual.
+También se pueden generar de manera individual:
 
 ```sh
 # Generar la memoria del TFG
@@ -20,6 +23,9 @@ $ make memoriaTFG
 
 # Generar el manual de usuario
 $ make manual_usuario
+
+# Generar la presentacion
+$ make presentation
 ```
 
 Para eliminar los archivos intermedios generados, se puede utilizar la siguiente opción:
@@ -42,6 +48,7 @@ puede acceder a ésta en los siguientes enlaces:
 
 - [Memoria del TFG](https://vol0kin.github.io/TFG/pdfs/memoriaTFG.pdf)
 - [Manual de usuario](https://vol0kin.github.io/TFG/pdfs/manual_usuario.pdf)
+- [Presentación del TFG](https://vol0kin.github.io/TFG/pdfs/presentation.pdf)
 
 ## :computer: Código fuente
 
